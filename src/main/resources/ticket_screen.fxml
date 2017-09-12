@@ -19,20 +19,20 @@
             </Label>
             <ImageView fx:id="imageQRCode" fitHeight="150.0" fitWidth="200.0" layoutX="346.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" />
             <Label layoutX="37.0" layoutY="102.0" text="Vehicle Number" />
-            <TextField fx:id="vehicleNumberText" layoutX="134.0" layoutY="98.0" />
-            <TextField fx:id="slotNumberText" layoutX="134.0" layoutY="137.0" />
+            <TextField fx:id="vehicleNumberText" disable="true" editable="false" layoutX="134.0" layoutY="98.0" />
+            <TextField fx:id="slotNumberText" disable="true" editable="false" layoutX="134.0" layoutY="137.0" />
             <Label layoutX="37.0" layoutY="141.0" text="Slot Number" />
-            <TextField fx:id="fromDateText" layoutX="134.0" layoutY="188.0" />
+            <TextField fx:id="fromDateText" disable="true" editable="false" layoutX="134.0" layoutY="188.0" />
             <Label layoutX="36.0" layoutY="192.0" text="From" />
             <Label layoutX="37.0" layoutY="229.0" text="To" />
-            <TextField fx:id="toDateText" layoutX="134.0" layoutY="225.0" />
+            <TextField fx:id="toDateText" disable="true" editable="false" layoutX="134.0" layoutY="225.0" />
             <Label layoutX="38.0" layoutY="270.0" text="Time" />
-            <TextField fx:id="timeText" layoutX="134.0" layoutY="266.0" />
-            <TextField fx:id="totalCostText" layoutX="134.0" layoutY="325.0" />
+            <TextField fx:id="timeText" disable="true" editable="false" layoutX="134.0" layoutY="266.0" />
+            <TextField fx:id="totalCostText" disable="true" editable="false" layoutX="134.0" layoutY="325.0" />
             <Label layoutX="37.0" layoutY="328.0" text="Total Cost" />
             <Label layoutX="362.0" layoutY="291.0" text="Do you want to print the ticket?" />
-            <Button fx:id="noButton" layoutX="362.0" layoutY="337.0" mnemonicParsing="false" text="NO" />
-            <Button fx:id="yesButton" layoutX="494.0" layoutY="337.0" mnemonicParsing="false" text="YES" />
+            <Button fx:id="noButton" layoutX="362.0" layoutY="337.0" mnemonicParsing="false" onAction="#handleNoButtonAction" text="NO" />
+            <Button fx:id="yesButton" layoutX="494.0" layoutY="337.0" mnemonicParsing="false" onAction="#handleYesButtonAction" text="YES" />
          </children>
       </Pane>
    </children>

@@ -4,11 +4,17 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 
 /**
@@ -52,5 +58,25 @@ public class ReservationScreenController
 
         timePicker.setItems(elements);
         timePicker.getSelectionModel().selectFirst();
+    }
+    
+    @FXML
+    protected void handleCancelButtonAction(ActionEvent event) 
+            throws Exception {
+        System.exit(0);
+    }
+    
+    @FXML
+    protected void handleContinueButtonAction(ActionEvent event) 
+            throws Exception {
+        
+        Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("payment_screen.fxml"));
+        Scene mainScene = new Scene(root, 600, 400);
+    	
+        primaryStage.setTitle("Payment Info");
+        primaryStage.setScene(mainScene);
+        primaryStage.show();
     }
 }

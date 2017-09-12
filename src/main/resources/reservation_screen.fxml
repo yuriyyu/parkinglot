@@ -13,8 +13,8 @@
             <ChoiceBox id="timePicker" fx:id="timePicker" layoutX="423.0" layoutY="14.0" prefWidth="150.0" />
             <TextField fx:id="priceText" disable="true" editable="false" layoutX="206.0" layoutY="14.0" text="\$" />
             <Label layoutX="162.0" layoutY="18.0" prefHeight="17.0" prefWidth="33.0" text="Price" />
-            <Button fx:id="cancelButton" layoutX="195.0" layoutY="56.0" mnemonicParsing="false" text="Cancel" />
-            <Button fx:id="continueButton" layoutX="290.0" layoutY="56.0" mnemonicParsing="false" text="Continue" />
+            <Button onAction="#handleCancelButtonAction" fx:id="cancelButton" layoutX="195.0" layoutY="56.0" mnemonicParsing="false" text="Cancel" />
+            <Button onAction="#handleContinueButtonAction" fx:id="continueButton" layoutX="290.0" layoutY="56.0" mnemonicParsing="false" text="Continue" />
             <Label layoutX="381.0" layoutY="18.0" prefHeight="17.0" prefWidth="33.0" text="Time" />
             <TextField fx:id="typeText" disable="true" editable="false" layoutX="61.0" layoutY="14.0" prefHeight="25.0" prefWidth="75.0" text="Truck" />
             <Label layoutX="20.0" layoutY="18.0" prefHeight="17.0" prefWidth="33.0" text="Type" />
