@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.test.parking.ui.customer.OvertimeScreenController">
+   <children>
+      <Pane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Label layoutX="231.0" layoutY="41.0" text="Overtime Ticket">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="46.0" layoutY="110.0" text="Vehicle Number" />
+            <TextField fx:id="vehicleNumberText" layoutX="151.0" layoutY="106.0" />
+            <Label layoutX="46.0" layoutY="162.0" text="Slot Number" />
+            <Label layoutX="46.0" layoutY="209.0" text="Exceeded time" />
+            <TextField fx:id="exceededTimeText" layoutX="151.0" layoutY="205.0" />
+            <TextField fx:id="slotNumberText" layoutX="151.0" layoutY="158.0" />
+            <TextField fx:id="fineText" layoutX="151.0" layoutY="260.0" />
+            <Label layoutX="46.0" layoutY="264.0" text="Fine" />
+            <Button fx:id="payLaterText" layoutX="42.0" layoutY="332.0" mnemonicParsing="false" text="Pay Later" />
+            <Button fx:id="payNowText" layoutX="237.0" layoutY="332.0" mnemonicParsing="false" text="Pay Now" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

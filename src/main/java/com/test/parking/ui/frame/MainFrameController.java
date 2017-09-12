@@ -67,6 +67,18 @@ public class MainFrameController {
     @FXML
     private FlowPane container;
     
+    @FXML
+    protected void handleReserveSpotButtonAction(ActionEvent event) throws Exception {
+        Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("reservation_screen.fxml"));
+        Scene mainScene = new Scene(root, 600, 400);
+    	
+        primaryStage.setTitle("Parking Lot");
+        primaryStage.setScene(mainScene);
+        primaryStage.show();
+    }
+        
     @FXML protected void handleSignInButtonAction(ActionEvent event) throws Exception {
     	Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
     	Parent loginFrame = FXMLLoader.load(getClass().getClassLoader().getResource("loginFrame.fxml"));

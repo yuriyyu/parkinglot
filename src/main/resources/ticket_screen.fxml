@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.test.parking.ui.customer.TicketScreenController">
+   <children>
+      <Pane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="254.0" layoutY="41.0" text="Ticket Info">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="imageQRCode" fitHeight="150.0" fitWidth="200.0" layoutX="346.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" />
+            <Label layoutX="37.0" layoutY="102.0" text="Vehicle Number" />
+            <TextField fx:id="vehicleNumberText" layoutX="134.0" layoutY="98.0" />
+            <TextField fx:id="slotNumberText" layoutX="134.0" layoutY="137.0" />
+            <Label layoutX="37.0" layoutY="141.0" text="Slot Number" />
+            <TextField fx:id="fromDateText" layoutX="134.0" layoutY="188.0" />
+            <Label layoutX="36.0" layoutY="192.0" text="From" />
+            <Label layoutX="37.0" layoutY="229.0" text="To" />
+            <TextField fx:id="toDateText" layoutX="134.0" layoutY="225.0" />
+            <Label layoutX="38.0" layoutY="270.0" text="Time" />
+            <TextField fx:id="timeText" layoutX="134.0" layoutY="266.0" />
+            <TextField fx:id="totalCostText" layoutX="134.0" layoutY="325.0" />
+            <Label layoutX="37.0" layoutY="328.0" text="Total Cost" />
+            <Label layoutX="362.0" layoutY="291.0" text="Do you want to print the ticket?" />
+            <Button fx:id="noButton" layoutX="362.0" layoutY="337.0" mnemonicParsing="false" text="NO" />
+            <Button fx:id="yesButton" layoutX="494.0" layoutY="337.0" mnemonicParsing="false" text="YES" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

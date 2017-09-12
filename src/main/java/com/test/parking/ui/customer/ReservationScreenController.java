@@ -1,8 +1,11 @@
 package com.test.parking.ui.customer;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -13,7 +16,8 @@ import javafx.scene.layout.Pane;
  *
  * @author Yuriy Yugay
  */
-public class ReservationScreenController {
+public class ReservationScreenController  
+        implements Initializable {
 
     @FXML
     private Label dateLabel;
@@ -36,7 +40,8 @@ public class ReservationScreenController {
     @FXML
     private Button continueButton;
 
-    public void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
         dateLabel.setText("Today");
 
         ObservableList<String> elements = FXCollections.observableArrayList(
@@ -47,6 +52,5 @@ public class ReservationScreenController {
 
         timePicker.setItems(elements);
         timePicker.getSelectionModel().selectFirst();
-
     }
 }
