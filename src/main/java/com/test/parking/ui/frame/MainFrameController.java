@@ -45,13 +45,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
@@ -63,9 +67,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
  
 public class MainFrameController {
-	
-    @FXML
-    private FlowPane container;
     
     @FXML
     protected void handleReserveSpotButtonAction(ActionEvent event) throws Exception {
@@ -78,7 +79,7 @@ public class MainFrameController {
         primaryStage.setScene(mainScene);
         primaryStage.show();
     }
-        
+    
     @FXML protected void handleSignInButtonAction(ActionEvent event) throws Exception {
     	Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
     	Parent loginFrame = FXMLLoader.load(getClass().getClassLoader().getResource("loginFrame.fxml"));
@@ -140,7 +141,6 @@ public class MainFrameController {
             });
         }
 
-        
         ColumnConstraints col1 = new ColumnConstraints();
         col1.setPrefWidth(100);
         ColumnConstraints col2 = new ColumnConstraints();
@@ -148,22 +148,53 @@ public class MainFrameController {
         ColumnConstraints col3 = new ColumnConstraints();
         col3.setPrefWidth(100);
         grid.getColumnConstraints().addAll(col1, col2, col3);
-        
-//        final Text errorMessage = new Text();
-//        grid.add(errorMessage, 0, 1);
-//        btn.setOnAction(evt -> {
-//        	errorMessage.setFill(Color.FIREBRICK);
-//        	errorMessage.setText("Sign-in button pressed");       
-//        });
 
-        //Scene scene = new Scene(grid, 300, 200);
         Scene scene = new Scene(grid, 400, 500);
+    	stage.setTitle("Parking Lots");
+        stage.setScene(scene);
         
-        
-        
+    }
+    
+    @FXML protected void handleChangeTariffsButtonAction(ActionEvent event) throws Exception {
+    	Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
     	//Parent loginFrame = FXMLLoader.load(getClass().getClassLoader().getResource("loginFrame.fxml"));
     	
-    	stage.setTitle("Parking Lots");
+        
+        Group root = new Group();
+        Scene scene = new Scene(root, 400, 250, Color.WHITE);
+
+        TabPane tabPane = new TabPane();
+        tabPane.setStyle("-fx-tab-min-width: 180px;");
+
+        BorderPane borderPane = new BorderPane();
+        
+        Tab normalTab = new Tab();
+        normalTab.setText("Normal");
+        HBox hbox1 = new HBox();
+        hbox1.getChildren().add(new Label("Normal tab"));
+        hbox1.setAlignment(Pos.CENTER);
+        normalTab.setClosable(false);
+        normalTab.setContent(hbox1);
+        tabPane.getTabs().add(normalTab);
+
+        Tab holidayTab = new Tab();
+        holidayTab.setText("Holiday");
+        HBox hbox2 = new HBox();
+        hbox2.getChildren().add(new Label("Holiday tab"));
+        hbox2.setAlignment(Pos.CENTER);
+        holidayTab.setClosable(false);
+        holidayTab.setContent(hbox2);
+        tabPane.getTabs().add(holidayTab);
+        
+        // bind to take available space
+        borderPane.prefHeightProperty().bind(scene.heightProperty());
+        borderPane.prefWidthProperty().bind(scene.widthProperty());
+        
+        borderPane.setCenter(tabPane);
+        root.getChildren().add(borderPane);
+        stage.setScene(scene);
+        
+    	stage.setTitle("Change Tariffs");
         stage.setScene(scene);
         
     }

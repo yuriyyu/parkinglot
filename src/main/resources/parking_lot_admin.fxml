@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -191,5 +192,15 @@
             <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
+      <Pane fx:id="bottomPane" layoutX="7.0" layoutY="299.0" prefHeight="50.0" prefWidth="587.0">
+         <children>
+            <Label layoutX="324.0" layoutY="14.0" text="TotalProfit: ">
+               <font>
+                  <Font size="17.0" />
+               </font></Label>
+            <TextField fx:id="totalProfit" disable="true" editable="false" layoutX="411.0" layoutY="14.0" text="\$" />
+            <Button fx:id="changeTariffsButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleChangeTariffsButtonAction" text="Change Tariffs" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
