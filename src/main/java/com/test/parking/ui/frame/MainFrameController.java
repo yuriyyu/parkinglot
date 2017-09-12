@@ -60,6 +60,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -157,8 +158,6 @@ public class MainFrameController {
     
     @FXML protected void handleChangeTariffsButtonAction(ActionEvent event) throws Exception {
     	Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-    	//Parent loginFrame = FXMLLoader.load(getClass().getClassLoader().getResource("loginFrame.fxml"));
-    	
         
         Group root = new Group();
         Scene scene = new Scene(root, 400, 250, Color.WHITE);
@@ -168,20 +167,58 @@ public class MainFrameController {
 
         BorderPane borderPane = new BorderPane();
         
+        Label lCar = new Label("Cars");
+        Label lTruck = new Label("Trucks");
+        Label lMoto = new Label("Moto");
+        Label lDisabled = new Label("Disabled");
+        
+        TextField carsField = new TextField("10");
+        TextField trucksField = new TextField("20");
+        TextField motoField = new TextField("30");
+        TextField disabledField = new TextField("40");
+
+        
         Tab normalTab = new Tab();
         normalTab.setText("Normal");
         HBox hbox1 = new HBox();
-        hbox1.getChildren().add(new Label("Normal tab"));
-        hbox1.setAlignment(Pos.CENTER);
+        VBox vbox1 = new VBox(5);
+        VBox vbox2 = new VBox(5);
+        //vbox1.setPadding(new Insets(1));
+        vbox1.getChildren().addAll(lCar, lTruck, lMoto, lDisabled);
+        vbox2.getChildren().addAll(carsField, trucksField, motoField, disabledField);
+        hbox1.getChildren().addAll(vbox1, vbox2);
         normalTab.setClosable(false);
         normalTab.setContent(hbox1);
         tabPane.getTabs().add(normalTab);
+        
+        Label lCar2 = new Label("Cars");
+        lCar2.setFont(new Font("Tahoma", 18));
+        Label lTruck2 = new Label("Trucks");
+        lTruck2.setFont(new Font("Tahoma", 18));
+        Label lMoto2 = new Label("Moto");
+        lMoto2.setFont(new Font("Tahoma", 18));
+        Label lDisabled2 = new Label("Disabled");
+        lDisabled2.setFont(new Font("Tahoma", 18));
+        
+        TextField carsField2 = new TextField("20");
+        TextField trucksField2 = new TextField("40");
+        TextField motoField2 = new TextField("60");
+        TextField disabledField2 = new TextField("80");
+        
 
         Tab holidayTab = new Tab();
         holidayTab.setText("Holiday");
         HBox hbox2 = new HBox();
-        hbox2.getChildren().add(new Label("Holiday tab"));
-        hbox2.setAlignment(Pos.CENTER);
+        VBox vbox3 = new VBox(5);
+        vbox3.setPadding(new Insets(40, 40, 40, 40));
+        vbox3.setSpacing(10);
+        VBox vbox4 = new VBox(5);
+        vbox4.setPadding(new Insets(40, 40, 40, 40));
+        vbox4.setSpacing(10);
+        //vbox1.setPadding(new Insets(1));
+        vbox3.getChildren().addAll(lCar2, lTruck2, lMoto2, lDisabled2);
+        vbox4.getChildren().addAll(carsField2, trucksField2, motoField2, disabledField2);
+        hbox2.getChildren().addAll(vbox3, vbox4);
         holidayTab.setClosable(false);
         holidayTab.setContent(hbox2);
         tabPane.getTabs().add(holidayTab);
