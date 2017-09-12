@@ -1,14 +1,14 @@
-package com.test.parking.vehicles;
+package com.test.parking.core.vehicles;
 
 /**
  * Created by User on 7/4/2016.
  */
-public class Truck
+public class Car
         implements Vehicle {
 
     @Override
     public boolean canParkInNormalSlot() {
-        return false;
+        return true;
     }
 
     @Override

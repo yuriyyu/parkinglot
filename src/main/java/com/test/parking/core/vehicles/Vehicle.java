@@ -1,4 +1,4 @@
-package com.test.parking.vehicles;
+package com.test.parking.core.vehicles;
 
 /**
  * Created by User on 7/4/2016.

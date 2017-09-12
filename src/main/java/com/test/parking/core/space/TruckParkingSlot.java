@@ -1,4 +1,4 @@
-package com.test.parking.space;
+package com.test.parking.core.space;
 
 /**
  * Created by User on 7/4/2016.

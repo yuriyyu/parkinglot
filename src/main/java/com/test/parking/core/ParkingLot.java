@@ -1,6 +1,6 @@
-package com.test.parking;
+package com.test.parking.core;
 
-import com.test.parking.vehicles.Vehicle;
+import com.test.parking.core.vehicles.Vehicle;
 
 /**
  * Created by User on 7/5/2016.

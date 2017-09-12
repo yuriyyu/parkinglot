@@ -1,6 +1,6 @@
-package com.test.parking.space;
+package com.test.parking.core.space;
 
-import com.test.parking.vehicles.Vehicle;
+import com.test.parking.core.vehicles.Vehicle;
 
 /**
  * Created by User on 7/4/2016.

@@ -1,9 +1,9 @@
-package com.test.parking;
+package com.test.parking.core;
 
-import com.test.parking.space.ParkingSlot;
-import com.test.parking.space.RegularParkingSlot;
-import com.test.parking.space.TruckParkingSlot;
-import com.test.parking.vehicles.Vehicle;
+import com.test.parking.core.space.ParkingSlot;
+import com.test.parking.core.space.RegularParkingSlot;
+import com.test.parking.core.space.TruckParkingSlot;
+import com.test.parking.core.vehicles.Vehicle;
 
 import java.util.ArrayList;
 import java.util.HashMap;
