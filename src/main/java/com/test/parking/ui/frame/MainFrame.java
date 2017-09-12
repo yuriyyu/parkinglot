@@ -32,20 +32,27 @@
 
 package com.test.parking.ui.frame;
 
+import com.test.parking.ui.AbstractJavaFxApplicationSupport;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Lazy;
 
-public class MainFrame extends Application {
+@Lazy
+@SpringBootApplication
+public class MainFrame extends AbstractJavaFxApplicationSupport {
     
     public static void main(String[] args) {
-        Application.launch(MainFrame.class, args);
+//        Application.launch(MainFrame.class, args);
+        launchApp(MainFrame.class, args);
     }
     
     @Override
     public void start(Stage stage) throws Exception {
+
         Parent mainFrame = FXMLLoader.load(getClass().getClassLoader().getResource("mainFrame.fxml"));
 
         stage.setTitle("Parking Lot MS");
