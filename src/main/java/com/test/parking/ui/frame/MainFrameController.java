@@ -35,6 +35,9 @@ package com.test.parking.ui.frame;
 import java.util.ArrayList;
 
 import com.test.parking.core.GroundParkingLot;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -49,6 +52,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -60,7 +64,7 @@ import javafx.stage.Stage;
  
 public class MainFrameController {
 	
-	@FXML
+    @FXML
     private FlowPane container;
     
     @FXML protected void handleSignInButtonAction(ActionEvent event) throws Exception {
@@ -73,44 +77,72 @@ public class MainFrameController {
     }
     
     @FXML protected void handleLoginButtonAction(ActionEvent event) throws Exception {
-    	Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-    	
-    	ArrayList<GroundParkingLot> parkingLots = new ArrayList<GroundParkingLot>();
+        ArrayList<GroundParkingLot> parkingLots = new ArrayList<GroundParkingLot>();
     	parkingLots.add(new GroundParkingLot(0, "Washington, First st.", 1, 2));
-    	parkingLots.add(new GroundParkingLot(0, "Washington, Second st.", 3, 4));
-    	parkingLots.add(new GroundParkingLot(0, "Washington, Third st.", 5, 6));
-    	
-    	
+    	parkingLots.add(new GroundParkingLot(1, "Washington, Second st.", 3, 4));
+    	parkingLots.add(new GroundParkingLot(2, "Washington, Third st.", 5, 6));
+        
+    	Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
     	stage.setTitle("Parking Lots");
         GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
+        grid.setAlignment(Pos.TOP_LEFT);
+        grid.setHgap(parkingLots.size());
+        grid.setVgap(3);
         grid.setPadding(new Insets(25, 25, 25, 25));
-
-        Text scenetitle = new Text("Parking Lots");
-        scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        grid.add(scenetitle, 0, 0, 2, 1);
-
-        Label userName = new Label("User Name:");
-        grid.add(userName, 0, 1);
         
-        Label pw = new Label("Password:");
-        grid.add(pw, 0, 2);
-        grid.setGridLinesVisible(true) ;
+        Text idLabel = new Text("ID");
+        idLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
+        grid.add(idLabel, 0, 0);
 
-        Button btn = new Button("Sign in");
-        HBox hbBtn = new HBox(10);
-        hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-        hbBtn.getChildren().add(btn);
-        grid.add(hbBtn, 1, 4);
+        Text addressLabel = new Text("Address");
+        addressLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
+        grid.add(addressLabel, 1, 0);
 
-        final Text errorMessage = new Text();
-        grid.add(errorMessage, 1, 6);
-        btn.setOnAction(evt -> {
-        	errorMessage.setFill(Color.FIREBRICK);
-        	errorMessage.setText("Sign-in button pressed");       
-        });
+        for(int i = 0; i < parkingLots.size(); i++) {
+            String id = Integer.toString(parkingLots.get(i).getId());
+            Text idText = new Text(id);
+            idText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 12));
+            grid.add(idText, 0, i + 1);
+
+            Text addressText = new Text(parkingLots.get(i).getAddress());
+            addressText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 12));
+            grid.add(addressText, 1, i + 1);
+
+            Button btn = new Button("View");
+            HBox hbBtn = new HBox(10);
+            hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
+            hbBtn.getChildren().add(btn);
+            grid.add(hbBtn, 2, i + 1);
+            
+            btn.setOnAction(evt -> {
+                Parent loginFrame;
+                try {
+                    loginFrame = FXMLLoader.load(getClass().getClassLoader().getResource("parking_lot_admin.fxml"));
+                    stage.setTitle("Parking Lot " + id);
+                    stage.setScene(new Scene(loginFrame, 600, 400));
+                } catch (IOException ex) {
+                    Logger.getLogger(MainFrameController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            });
+        }
+
+        
+        ColumnConstraints col1 = new ColumnConstraints();
+        col1.setPrefWidth(100);
+        ColumnConstraints col2 = new ColumnConstraints();
+        col2.setPrefWidth(100);
+        ColumnConstraints col3 = new ColumnConstraints();
+        col3.setPrefWidth(100);
+        grid.getColumnConstraints().addAll(col1, col2, col3);
+        
+//        final Text errorMessage = new Text();
+//        grid.add(errorMessage, 0, 1);
+//        btn.setOnAction(evt -> {
+//        	errorMessage.setFill(Color.FIREBRICK);
+//        	errorMessage.setText("Sign-in button pressed");       
+//        });
 
         //Scene scene = new Scene(grid, 300, 200);
         Scene scene = new Scene(grid, 400, 500);
