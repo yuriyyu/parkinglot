@@ -22,7 +22,7 @@ public class GroundParkingLotTest {
 
     @Before
     public void setUp() throws Exception {
-        parkingLot = new GroundParkingLot(1, 2);
+        parkingLot = new GroundParkingLot(1, "Washington", 1, 2);
     }
 
     @After

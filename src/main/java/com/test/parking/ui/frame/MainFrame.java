@@ -30,7 +30,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.test.parking.ui.fxmlexample;
+package com.test.parking.ui.frame;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -38,18 +38,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class FXMLExample4 extends Application {
+public class MainFrame extends Application {
     
     public static void main(String[] args) {
-        Application.launch(FXMLExample4.class, args);
+        Application.launch(MainFrame.class, args);
     }
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml_example4.fxml"));
-        
-        stage.setTitle("FXML Welcome");
-        stage.setScene(new Scene(root, 300, 275));
+        Parent mainFrame = FXMLLoader.load(getClass().getClassLoader().getResource("mainFrame.fxml"));
+
+        stage.setTitle("Parking Lot MS");
+        stage.setScene(new Scene(mainFrame, 300, 275));
         stage.show();
     }
 }

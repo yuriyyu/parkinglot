@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane fx:controller="com.test.parking.ui.fxmlexample.FXMLExampleController" 
+<GridPane fx:controller="com.test.parking.ui.frame.MainFrameController" 
     xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" 
     styleClass="root">
   <padding><Insets top="25" right="25" bottom="10" left="25" /></padding>
@@ -29,11 +29,11 @@
   
   <HBox spacing="10" alignment="bottom_right" 
       GridPane.columnIndex="1" GridPane.rowIndex="4">
-      <Button text="Sign In" 
-       onAction="#handleSubmitButtonAction" />
+      <Button text="Login" 
+       onAction="#handleLoginButtonAction" />
   </HBox>
   
-  <Text fx:id="actiontarget" 
+  <Text fx:id="errorMessage" 
       GridPane.columnIndex="1" GridPane.rowIndex="6" />
   
   <stylesheets>
