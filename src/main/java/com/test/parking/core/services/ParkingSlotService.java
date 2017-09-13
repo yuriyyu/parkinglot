@@ -5,10 +5,13 @@
  */
 package com.test.parking.core.services;
 
+import org.springframework.stereotype.Service;
+
 /**
  *
  * @author 986056
  */
+@Service("parkingSlotService")
 public class ParkingSlotService {
     
 }
