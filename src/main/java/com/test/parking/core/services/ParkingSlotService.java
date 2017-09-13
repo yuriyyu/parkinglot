@@ -5,6 +5,10 @@
  */
 package com.test.parking.core.services;
 
+import com.test.parking.core.models.spaces.ParkingSlot;
+import com.test.parking.core.repositories.ParkingSlotRepository;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,4 +18,22 @@ import org.springframework.stereotype.Service;
 @Service("parkingSlotService")
 public class ParkingSlotService {
     
+    private ParkingSlotRepository parkingSlotRepository;
+    
+    @Autowired
+    public ParkingSlotService(ParkingSlotRepository parkingSlotRepository) {
+        this.parkingSlotRepository = parkingSlotRepository;
+    }
+    
+    public List<ParkingSlot> getParkingSlots() {
+        return parkingSlotRepository.findAll();
+    }
+    
+    public ParkingSlot getParkingSlot(Integer id) {
+        return parkingSlotRepository.findOne(id);
+    }
+    
+    public void addParkingSlot(ParkingSlot parkingSlot) {
+        parkingSlotRepository.save(parkingSlot);
+    }
 }
