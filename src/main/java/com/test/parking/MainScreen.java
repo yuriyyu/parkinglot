@@ -56,7 +56,6 @@ public class MainScreen
     
     @Override
     public void start(Stage stage) throws Exception {
-
         Parent mainFrame = FXMLLoader.load(getClass().getClassLoader().getResource("main_screen.fxml"));
 
         stage.setTitle("Parking Lot MS");

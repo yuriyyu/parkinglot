@@ -1,5 +1,8 @@
 package com.test.parking.core.models.tariffs;
 
+import com.test.parking.core.models.ParkingLot;
+import com.test.parking.core.models.vehicles.Vehicle;
+
 import javax.persistence.*;
 
 /**
@@ -11,13 +14,20 @@ import javax.persistence.*;
 @Table(name = "tariffs")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TARIFF_TYPE")
-public abstract class Tariff {
+public class Tariff {
 
     @Id
     @GeneratedValue
-    private int id;
+    protected int id;
 
-    private double price;
+    protected boolean isHoliday;
+
+    @OneToOne
+    @JoinColumn(name = "parking_lot_id")
+    protected ParkingLot parkingLot;
+
+    protected double price;
+
 
     public int getId() {
         return id;

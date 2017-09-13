@@ -6,8 +6,6 @@
 package com.test.parking.ui.admin;
 
 import com.test.parking.core.models.GroundParkingLot;
-import com.test.parking.core.models.tariffs.HolidayTariff;
-import com.test.parking.core.models.tariffs.NormalTariff;
 import com.test.parking.core.models.tariffs.Tariff;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,11 +54,11 @@ public class ParkingLotAdminScreenController {
 
         BorderPane borderPane = new BorderPane();
         
-        Tab normalTab = createTab(new NormalTariff(), stage, title);
-        Tab holidayTab = createTab(new HolidayTariff(), stage, title);
+//        Tab normalTab = createTab(new NormalTariff(), stage, title);
+//        Tab holidayTab = createTab(new HolidayTariff(), stage, title);
         
-        tabPane.getTabs().add(normalTab);
-        tabPane.getTabs().add(holidayTab);
+//        tabPane.getTabs().add(normalTab);
+//        tabPane.getTabs().add(holidayTab);
         // bind to take available space
         borderPane.prefHeightProperty().bind(scene.heightProperty());
         borderPane.prefWidthProperty().bind(scene.widthProperty());
@@ -146,12 +144,12 @@ public class ParkingLotAdminScreenController {
         //type of tariff
         String type;
         
-        if(tariff instanceof NormalTariff) {
-            type = "Normal";
-        } else {
+//        if(tariff instanceof NormalTariff) {
+//            type = "Normal";
+//        } else {
             type = "Holiday";
             price[0] = "20"; price[1] = "40"; price[2] = "60"; price[3] = "80";
-        }
+//        }
         
         Label lCar = new Label("Cars");
         lCar.setFont(new Font("Tahoma", 18));

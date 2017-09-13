@@ -1,9 +1,7 @@
 package com.test.parking.core.models;
 
 import com.test.parking.core.models.spaces.ParkingSlot;
-import com.test.parking.core.models.tariffs.HolidayTariff;
-import com.test.parking.core.models.tariffs.NormalTariff;
-import com.test.parking.core.models.vehicles.Vehicle;
+import com.test.parking.core.models.tariffs.Tariff;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -27,11 +25,8 @@ public abstract class ParkingLot {
 
     private int size;
 
-    @OneToOne(mappedBy = "parkingLot")
-    private NormalTariff normal;
-
-    @OneToOne(mappedBy = "parkingLot")
-    private HolidayTariff holiday;
+    @OneToMany(mappedBy = "parkingLot",cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Tariff> tariffs;
 
     public ParkingLot(int id, int size) {
         this.id = id;
@@ -41,22 +36,6 @@ public abstract class ParkingLot {
 
     public void setSize(int size) {
         this.size = size;
-    }
-
-    public NormalTariff getNormal() {
-        return normal;
-    }
-
-    public void setNormal(NormalTariff normal) {
-        this.normal = normal;
-    }
-
-    public HolidayTariff getHoliday() {
-        return holiday;
-    }
-
-    public void setHoliday(HolidayTariff holiday) {
-        this.holiday = holiday;
     }
 
     public List<ParkingSlot> getParkingSlots() {
