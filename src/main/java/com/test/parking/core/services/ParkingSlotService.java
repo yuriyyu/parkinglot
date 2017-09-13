@@ -11,8 +11,4 @@ package com.test.parking.core.services;
  */
 public class ParkingSlotService {
     
-//    createParkingSlot() {
-//        
-//    }
-    
 }

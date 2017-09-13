@@ -9,6 +9,6 @@ package com.test.parking.core.services;
  *
  * @author 986056
  */
-public class ParkingSpotService {
+public class ParkingLotService {
     
 }
