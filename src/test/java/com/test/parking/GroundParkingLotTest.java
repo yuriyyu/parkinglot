@@ -1,9 +1,9 @@
 package com.test.parking;
 
-import com.test.parking.core.GroundParkingLot;
-import com.test.parking.core.vehicles.Car;
-import com.test.parking.core.vehicles.Truck;
-import com.test.parking.core.vehicles.Vehicle;
+import com.test.parking.core.models.GroundParkingLot;
+import com.test.parking.core.models.vehicles.Car;
+import com.test.parking.core.models.vehicles.Truck;
+import com.test.parking.core.models.vehicles.Vehicle;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

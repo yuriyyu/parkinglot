@@ -1,10 +1,12 @@
-package com.test.parking.core;
+package com.test.parking.core.models;
 
-import com.test.parking.core.space.ParkingSlot;
-import com.test.parking.core.space.RegularParkingSlot;
-import com.test.parking.core.space.TruckParkingSlot;
-import com.test.parking.core.vehicles.Vehicle;
+import com.test.parking.core.models.spaces.ParkingSlot;
+import com.test.parking.core.models.spaces.RegularParkingSlot;
+import com.test.parking.core.models.spaces.TruckParkingSlot;
+import com.test.parking.core.models.vehicles.Vehicle;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,12 +15,14 @@ import java.util.Map;
 /**
  * Created by User on 7/4/2016.
  */
+@Entity
+@DiscriminatorValue("ground")
 public class GroundParkingLot
-        implements ParkingLot {
+        extends ParkingLot {
 
-    private final Map<Integer, ParkingSlot> occupiedSpaceMap;
-    private final List<ParkingSlot> regularSlots;
-    private final List<ParkingSlot> truckSlots;
+//    private final Map<Integer, ParkingSlot> occupiedSpaceMap;
+//    private final List<ParkingSlot> regularSlots;
+//    private final List<ParkingSlot> truckSlots;
     private final int regularSpaces;
     private final int truckSpaces;
     private final int id;
@@ -36,9 +40,9 @@ public class GroundParkingLot
         this.regularSpaces = regularSpaces;
         this.truckSpaces = truckSpaces;
 
-        this.occupiedSpaceMap = new HashMap<>(regularSpaces + truckSpaces);
-        this.regularSlots = new ArrayList<>(regularSpaces);
-        this.truckSlots = new ArrayList<>(truckSpaces);
+//        this.occupiedSpaceMap = new HashMap<>(regularSpaces + truckSpaces);
+//        this.regularSlots = new ArrayList<>(regularSpaces);
+//        this.truckSlots = new ArrayList<>(truckSpaces);
 
         createParkingSlots();
     }
@@ -51,18 +55,18 @@ public class GroundParkingLot
         }
 
         ParkingSlot slot = null;
-        // Finding appropriate slot for the vehicle
-        if(vehicle.canParkInNormalSlot()) {
-            slot = getFreeSlot(regularSlots);
-        }
-
-        if(slot == null && vehicle.canParkInLargeSlot()) {
-            slot = getFreeSlot(truckSlots);
-        }
-
-        if(slot == null) {
-            return 0;
-        }
+//        // Finding appropriate slot for the vehicle
+//        if(vehicle.canParkInNormalSlot()) {
+//            slot = getFreeSlot(regularSlots);
+//        }
+//
+//        if(slot == null && vehicle.canParkInLargeSlot()) {
+//            slot = getFreeSlot(truckSlots);
+//        }
+//
+//        if(slot == null) {
+//            return 0;
+//        }
         return register(slot, vehicle);
     }
 
@@ -72,25 +76,25 @@ public class GroundParkingLot
         if(ticketNumber <= 0) {
             throw new IllegalArgumentException("ticket number <= 0");
         }
-        ParkingSlot slot = occupiedSpaceMap.remove(ticketNumber);
-        if(slot == null) {
-            return false;
-        }
-
-        slot.unpark();
+//        ParkingSlot slot = occupiedSpaceMap.remove(ticketNumber);
+//        if(slot == null) {
+//            return false;
+//        }
+//
+//        slot.unpark();
         return true;
     }
 
     // creating parking spaces
     private void createParkingSlots() {
-        int slotNumber = 1;
-        for(int x = 1; x <= regularSpaces; x++) {
-            regularSlots.add(new RegularParkingSlot(slotNumber++));
-        }
-
-        for (int x = 1; x <= truckSpaces; x++) {
-            truckSlots.add(new TruckParkingSlot(slotNumber++));
-        }
+//        int slotNumber = 1;
+//        for(int x = 1; x <= regularSpaces; x++) {
+//            regularSlots.add(new RegularParkingSlot(slotNumber++));
+//        }
+//
+//        for (int x = 1; x <= truckSpaces; x++) {
+//            truckSlots.add(new TruckParkingSlot(slotNumber++));
+//        }
     }
 
     // get free slot from specific slots array
@@ -105,10 +109,11 @@ public class GroundParkingLot
 
     // register and return slot number
     private int register (ParkingSlot slot, Vehicle vehicle) {
-        int slotNum = slot.getSlotNumber();
-        slot.park(vehicle);
-        occupiedSpaceMap.put(slotNum, slot);
-        return slot.getSlotNumber();
+//        int slotNum = slot.getSlotNumber();
+//        slot.park(vehicle);
+//        occupiedSpaceMap.put(slotNum, slot);
+//        return slot.getSlotNumber();
+        return -1;
     }
 
 	public String getAddress() {

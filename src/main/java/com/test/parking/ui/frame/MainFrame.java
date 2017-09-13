@@ -38,11 +38,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 
-@Lazy
 @SpringBootApplication
+@Configuration
+@ComponentScan(basePackages="com.test.parking")
+@EntityScan(basePackages = "com.test.parking.core")
 public class MainFrame extends AbstractJavaFxApplicationSupport {
     
     public static void main(String[] args) {
