@@ -5,9 +5,12 @@
  */
 package com.test.parking.core.services;
 
+import com.test.parking.core.models.ParkingLot;
 import com.test.parking.core.repositories.ParkingLotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  *
@@ -21,5 +24,13 @@ public class ParkingLotService {
     @Autowired
     public ParkingLotService(ParkingLotRepository parkingLotRepository) {
         this.parkingLotRepository = parkingLotRepository;
+    }
+
+    public List<ParkingLot> getParkingLots() {
+        return parkingLotRepository.findAll();
+    }
+
+    public ParkingLot getParkingLot(Integer id) {
+        return parkingLotRepository.findOne(id);
     }
 }
