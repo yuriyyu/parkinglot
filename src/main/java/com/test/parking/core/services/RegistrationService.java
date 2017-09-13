@@ -9,4 +9,5 @@ import org.springframework.stereotype.Service;
  */
 @Service("registrationService")
 public class RegistrationService {
+
 }

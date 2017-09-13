@@ -30,25 +30,22 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.test.parking.ui.admin;
+package com.test.parking;
 
 import com.test.parking.ui.AbstractJavaFxApplicationSupport;
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 
 @SpringBootApplication
 @Configuration
 @ComponentScan(basePackages="com.test.parking")
-@EntityScan(basePackages = "com.test.parking.core")
+@EntityScan(basePackages = "com.test.parking")
 public class MainScreen
         extends AbstractJavaFxApplicationSupport {
     
