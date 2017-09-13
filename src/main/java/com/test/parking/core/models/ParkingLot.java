@@ -1,6 +1,8 @@
 package com.test.parking.core.models;
 
 import com.test.parking.core.models.spaces.ParkingSlot;
+import com.test.parking.core.models.tariffs.HolidayTariff;
+import com.test.parking.core.models.tariffs.NormalTariff;
 import com.test.parking.core.models.vehicles.Vehicle;
 
 import javax.persistence.*;
@@ -25,14 +27,37 @@ public abstract class ParkingLot {
 
     private int size;
 
+    @OneToOne(mappedBy = "parkingLot")
+    private NormalTariff normal;
+
+    @OneToOne(mappedBy = "parkingLot")
+    private HolidayTariff holiday;
+
     public ParkingLot(int id, int size) {
         this.id = id;
         this.size = size;
         this.parkingSlots = new ArrayList<>(size);
     }
 
-    abstract int enter(Vehicle vehicle);
-    abstract boolean exit(int ticketNumber);
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public NormalTariff getNormal() {
+        return normal;
+    }
+
+    public void setNormal(NormalTariff normal) {
+        this.normal = normal;
+    }
+
+    public HolidayTariff getHoliday() {
+        return holiday;
+    }
+
+    public void setHoliday(HolidayTariff holiday) {
+        this.holiday = holiday;
+    }
 
     public List<ParkingSlot> getParkingSlots() {
         return parkingSlots;

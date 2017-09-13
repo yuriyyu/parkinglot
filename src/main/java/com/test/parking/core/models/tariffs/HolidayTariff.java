@@ -1,5 +1,7 @@
 package com.test.parking.core.models.tariffs;
 
+import com.test.parking.core.models.ParkingLot;
+
 import javax.persistence.*;
 
 /**
@@ -11,4 +13,8 @@ import javax.persistence.*;
 @DiscriminatorValue("holiday")
 public class HolidayTariff
         extends Tariff {
+
+    @OneToOne
+    @JoinColumn(name = "parking_lot_id")
+    protected ParkingLot parkingLot;
 }
