@@ -21,15 +21,6 @@ public class GroundParkingLot
 
     }
 
-    @Override
-    int enter(Vehicle vehicle) {
-        return 0;
-    }
-
-    @Override
-    boolean exit(int ticketNumber) {
-        return false;
-    }
 //
 //    // enter parking lot
 //    @Override
