@@ -30,39 +30,37 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.test.parking.ui.frame;
+package com.test.parking.ui.admin;
 
-import com.test.parking.ui.AbstractJavaFxApplicationSupport;
-import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
-
-@SpringBootApplication
-@Configuration
-@ComponentScan(basePackages="com.test.parking")
-@EntityScan(basePackages = "com.test.parking.core")
-public class MainFrame extends AbstractJavaFxApplicationSupport {
+ 
+public class MainScreenController {
     
-    public static void main(String[] args) {
-//        Application.launch(MainFrame.class, args);
-        launchApp(MainFrame.class, args);
+    @FXML
+    protected void handleReserveSpotButtonAction(ActionEvent event) throws Exception {
+        Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("reservation_screen.fxml"));
+        Scene mainScene = new Scene(root, 600, 400);
+    	
+        primaryStage.setTitle("Parking Lot");
+        primaryStage.setScene(mainScene);
+        primaryStage.show();
     }
     
-    @Override
-    public void start(Stage stage) throws Exception {
-
-        Parent mainFrame = FXMLLoader.load(getClass().getClassLoader().getResource("mainFrame.fxml"));
-
-        stage.setTitle("Parking Lot MS");
-        stage.setScene(new Scene(mainFrame, 300, 275));
-        stage.show();
+    @FXML protected void handleSignInButtonAction(ActionEvent event) throws Exception {
+    	Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+    	Parent loginFrame = FXMLLoader.load(getClass().getClassLoader().getResource("login_screen.fxml"));
+    	
+    	stage.setTitle("Login");
+        stage.setScene(new Scene(loginFrame, 300, 275));
+        
     }
+
 }

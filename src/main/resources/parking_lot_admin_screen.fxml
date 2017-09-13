@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.test.parking.ui.frame.MainFrameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.test.parking.ui.admin.ParkingLotAdminScreenController">
    <children>
       <Pane layoutX="7.0" layoutY="49.0" prefHeight="251.0" prefWidth="587.0">
          <children>
@@ -192,7 +192,7 @@
             <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <Pane fx:id="bottomPane" layoutX="7.0" layoutY="299.0" prefHeight="50.0" prefWidth="587.0">
+      <Pane fx:id="bottomPane" layoutX="7.0" layoutY="299.0" prefHeight="82.0" prefWidth="587.0">
          <children>
             <Label layoutX="324.0" layoutY="14.0" text="TotalProfit: ">
                <font>
@@ -200,6 +200,7 @@
                </font></Label>
             <TextField fx:id="totalProfit" disable="true" editable="false" layoutX="411.0" layoutY="14.0" text="\$" />
             <Button fx:id="changeTariffsButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleChangeTariffsButtonAction" text="Change Tariffs" />
+            <Button fx:id="backButton" layoutX="14.0" layoutY="43.0" mnemonicParsing="false" onAction="#handleBackButtonAction" text="Back" />
          </children>
       </Pane>
    </children>

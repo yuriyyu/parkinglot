@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="center" hgap="0" prefHeight="305.0" prefWidth="340.0" styleClass="root" vgap="0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.test.parking.ui.frame.MainFrameController">
+<GridPane alignment="center" hgap="0" prefHeight="305.0" prefWidth="340.0" styleClass="root" vgap="0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.test.parking.ui.admin.MainScreenController">
   
   <HBox alignment="bottom_right" spacing="10" GridPane.columnIndex="2" GridPane.rowIndex="8" />
    <Button onAction="#handleReserveSpotButtonAction" prefHeight="55.0" prefWidth="170.0" text="Reserve Spot" GridPane.columnIndex="2" GridPane.rowIndex="7">
