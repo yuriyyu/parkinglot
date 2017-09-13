@@ -35,9 +35,9 @@ public class LoginScreenController {
     
     @FXML protected void handleLoginButtonAction(ActionEvent event) throws Exception {
         ArrayList<GroundParkingLot> parkingLots = new ArrayList<GroundParkingLot>();
-    	parkingLots.add(new GroundParkingLot(0, "Washington, First st.", 1, 2));
-    	parkingLots.add(new GroundParkingLot(1, "Washington, Second st.", 3, 4));
-    	parkingLots.add(new GroundParkingLot(2, "Washington, Third st.", 5, 6));
+    	parkingLots.add(new GroundParkingLot(0, "Washington, First st.", 20));
+    	parkingLots.add(new GroundParkingLot(1, "Washington, Second st.", 20));
+    	parkingLots.add(new GroundParkingLot(2, "Washington, Third st.", 20));
         
     	Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 

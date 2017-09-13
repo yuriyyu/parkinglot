@@ -1,42 +1,52 @@
 package com.test.parking.core.models.spaces;
 
-import com.test.parking.core.models.vehicles.Vehicle;
+import com.test.parking.core.models.ParkingLot;
+import com.test.parking.core.models.reservations.Registration;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 /**
  * Created by User on 7/4/2016.
  */
-@MappedSuperclass
+@Entity
+@Table(name = "parking_slot")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "SLOT_TYPE")
 public abstract class ParkingSlot {
     @Id
     @GeneratedValue
-    private int id;
+    protected int id;
 
-    private boolean isOccupied;
+    @OneToOne(mappedBy = "parkingSlot",cascade = CascadeType.ALL)
+    protected Registration registration;
+
+    @ManyToOne()
+    @JoinColumn(name = "parking_id")
+    protected ParkingLot parkingLot;
+
     private String column;
+
     private int row;
-    private Vehicle vehicle;
 
     public ParkingSlot(String column, int row) {
         this.column = column;
         this.row = row;
     }
 
-    public void park(Vehicle vehicle) {
-        this.vehicle = vehicle;
-        isOccupied = true;
+    public Registration getRegistration() {
+        return registration;
     }
 
-    public void unpark() {
-        this.vehicle = null;
-        isOccupied = false;
+    public void setRegistration(Registration registration) {
+        this.registration = registration;
     }
 
-    public boolean isOccupied () {
-        return isOccupied;
+    public ParkingLot getParkingLot() {
+        return parkingLot;
+    }
+
+    public void setParkingLot(ParkingLot parkingLot) {
+        this.parkingLot = parkingLot;
     }
 
     public String getColumn() {

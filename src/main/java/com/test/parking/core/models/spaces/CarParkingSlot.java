@@ -4,16 +4,14 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 /**
- * Created by Yuriy Yugay on 9/13/2017.
- *
- * @author Yuriy Yugay
+ * Created by User on 7/4/2016.
  */
 @Entity
-@DiscriminatorValue("bike")
-public class MotorbikeParkingSlot
+@DiscriminatorValue("car")
+public class CarParkingSlot
         extends ParkingSlot {
 
-    public MotorbikeParkingSlot(String column, int row) {
+    public CarParkingSlot(String column, int row) {
         super(column, row);
     }
 }
