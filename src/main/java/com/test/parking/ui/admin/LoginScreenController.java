@@ -26,13 +26,20 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author 986056
  */
+@Component
 public class LoginScreenController {
-    
+
+    @Autowired
+    private ConfigurableApplicationContext springContext;
+
     @FXML protected void handleLoginButtonAction(ActionEvent event) throws Exception {
         ArrayList<GroundParkingLot> parkingLots = new ArrayList<GroundParkingLot>();
     	parkingLots.add(new GroundParkingLot(0, "Washington, First st."));
@@ -75,7 +82,9 @@ public class LoginScreenController {
             btn.setOnAction(evt -> {
                 Parent loginFrame;
                 try {
-                    loginFrame = FXMLLoader.load(getClass().getClassLoader().getResource("parking_lot_admin_screen.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/parking_lot_admin_screen.fxml"));
+                    fxmlLoader.setControllerFactory(springContext::getBean);
+                    loginFrame = fxmlLoader.load();
                     stage.setTitle("Parking Lot " + id);
                     stage.setScene(new Scene(loginFrame, 600, 400));
                 } catch (IOException ex) {

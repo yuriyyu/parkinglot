@@ -12,8 +12,11 @@ import javax.persistence.*;
 public class GroundParkingLot
         extends ParkingLot {
 
-    private final String address;
+    private String address;
 
+    public GroundParkingLot() {
+
+    }
 
     public GroundParkingLot(int id, String address) {
         super(id);

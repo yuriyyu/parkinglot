@@ -21,7 +21,8 @@ public class RegistrationService {
     private RegistrationRepository registrationRepository;
 
     @Autowired
-    public RegistrationService(ParkingSlotRepository parkingSlotRepository, RegistrationRepository registrationRepository) {
+    public RegistrationService(ParkingSlotRepository parkingSlotRepository,
+                               RegistrationRepository registrationRepository) {
         this.parkingSlotRepository = parkingSlotRepository;
         this.registrationRepository = registrationRepository;
     }

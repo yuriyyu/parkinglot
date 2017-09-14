@@ -1,7 +1,13 @@
 package com.test.parking.ui.customer;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import com.test.parking.core.models.ParkingLot;
+import com.test.parking.core.models.spaces.ParkingSlot;
+import com.test.parking.core.services.ParkingLotService;
+import com.test.parking.core.services.ParkingSlotService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,6 +21,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -22,8 +31,11 @@ import javafx.stage.Stage;
  *
  * @author Yuriy Yugay
  */
-public class ReservationScreenController  
+@Component
+public class ReservationScreenController
         implements Initializable {
+    @Autowired
+    private ConfigurableApplicationContext springContext;
 
     @FXML
     private Label dateLabel;
@@ -47,6 +59,10 @@ public class ReservationScreenController
     private Button cancelButton;
     @FXML
     private Button continueButton;
+
+    @Autowired
+    private ParkingLotService parkingLotService;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         dateLabel.setText("Today");
@@ -59,6 +75,9 @@ public class ReservationScreenController
 
         timePicker.setItems(elements);
         timePicker.getSelectionModel().selectFirst();
+
+        ParkingLot parkingLot = parkingLotService.getParkingLot(1);
+        System.out.println("ParkingLot: " + parkingLot);
     }
     
     @FXML
@@ -72,8 +91,11 @@ public class ReservationScreenController
             throws Exception {
         
         Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("payment_screen.fxml"));
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/payment_screen.fxml"));
+        fxmlLoader.setControllerFactory(springContext::getBean);
+        Parent root = fxmlLoader.load();
+//        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("payment_screen.fxml"));
         Scene mainScene = new Scene(root, 600, 400);
     	
         primaryStage.setTitle("Payment Info");

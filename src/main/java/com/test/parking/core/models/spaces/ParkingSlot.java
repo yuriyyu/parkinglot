@@ -24,12 +24,12 @@ public abstract class ParkingSlot {
     @JoinColumn(name = "parking_id")
     protected ParkingLot parkingLot;
 
-    private String column;
+    private String col;
 
     private int row;
 
     public ParkingSlot(String column, int row) {
-        this.column = column;
+        this.col = column;
         this.row = row;
     }
 
@@ -50,11 +50,11 @@ public abstract class ParkingSlot {
     }
 
     public String getColumn() {
-        return column;
+        return col;
     }
 
     public void setColumn(String column) {
-        this.column = column;
+        this.col = column;
     }
 
     public int getRow() {
@@ -71,5 +71,15 @@ public abstract class ParkingSlot {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("ParkingSlot{");
+        sb.append("id=").append(id);
+        sb.append(", col='").append(col).append('\'');
+        sb.append(", row=").append(row);
+        sb.append('}');
+        return sb.toString();
     }
 }

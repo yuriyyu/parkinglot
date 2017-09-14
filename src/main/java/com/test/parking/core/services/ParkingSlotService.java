@@ -21,20 +21,22 @@ import org.springframework.stereotype.Service;
 @Service("parkingSlotService")
 public class ParkingSlotService {
     private ParkingSlotFactory slotFactory;
-    
+
     private ParkingSlotRepository parkingSlotRepository;
     private ParkingLotRepository parkingLotRepository;
-    
+
     @Autowired
-    public ParkingSlotService(ParkingSlotFactory slotFactory, 
-            ParkingSlotRepository parkingSlotRepository, ParkingLotRepository parkingLotRepository) {
+    public ParkingSlotService(ParkingSlotFactory slotFactory,
+                              ParkingSlotRepository parkingSlotRepository,
+                              ParkingLotRepository parkingLotRepository) {
         this.slotFactory = slotFactory;
         this.parkingSlotRepository = parkingSlotRepository;
         this.parkingLotRepository = parkingLotRepository;
     }
     
-    public List<ParkingSlot> getParkingSlots() {
-        return parkingSlotRepository.findAll();
+    public List<ParkingSlot> getParkingSlots(int parkingLotId) {
+        ParkingLot parkingLot = parkingLotRepository.findOne(parkingLotId);
+        return parkingSlotRepository.findByParkingLot(parkingLot);
     }
     
     public ParkingSlot getParkingSlot(Integer id) {
@@ -44,7 +46,7 @@ public class ParkingSlotService {
     public void addParkingSlot(ParkingSlot parkingSlot) {
         parkingSlotRepository.save(parkingSlot);
     }
-    
+
     public void createParkingSlots(int parkingLotId,
             int carSlotsNum, int truckSlotsNum, int bikeSlotsNum, int disabledSlotsNum) {
         ParkingLot parkingLot = parkingLotRepository.findOne(parkingLotId);

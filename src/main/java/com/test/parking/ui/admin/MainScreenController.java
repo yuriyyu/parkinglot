@@ -32,6 +32,10 @@
 
 package com.test.parking.ui.admin;
 
+import com.test.parking.core.models.ParkingLot;
+import com.test.parking.core.models.spaces.ParkingSlot;
+import com.test.parking.core.services.ParkingLotService;
+import com.test.parking.core.services.ParkingSlotService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,16 +43,26 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
- 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.stereotype.Component;
+
+@Component
 public class MainScreenController {
-    
+    @Autowired
+    private ConfigurableApplicationContext springContext;
+
     @FXML
     protected void handleReserveSpotButtonAction(ActionEvent event) throws Exception {
+
         Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("reservation_screen.fxml"));
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/reservation_screen.fxml"));
+        fxmlLoader.setControllerFactory(springContext::getBean);
+        Parent root = fxmlLoader.load();
+
         Scene mainScene = new Scene(root, 600, 400);
-    	
+
         primaryStage.setTitle("Parking Lot");
         primaryStage.setScene(mainScene);
         primaryStage.show();
@@ -56,8 +70,11 @@ public class MainScreenController {
     
     @FXML protected void handleSignInButtonAction(ActionEvent event) throws Exception {
     	Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-    	Parent loginFrame = FXMLLoader.load(getClass().getClassLoader().getResource("login_screen.fxml"));
-    	
+//    	Parent loginFrame = FXMLLoader.load(getClass().getClassLoader().getResource("login_screen.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/login_screen.fxml"));
+        fxmlLoader.setControllerFactory(springContext::getBean);
+        Parent loginFrame = fxmlLoader.load();
+
     	stage.setTitle("Login");
         stage.setScene(new Scene(loginFrame, 300, 275));
         

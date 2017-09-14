@@ -44,12 +44,19 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author 986056
  */
+@Component
 public class ParkingLotAdminScreenController {
+    @Autowired
+    private ConfigurableApplicationContext springContext;
+
     private int parkingLotId;
     
     @FXML protected void handleChangeTariffsButtonAction(ActionEvent event) throws Exception {
@@ -142,7 +149,9 @@ public class ParkingLotAdminScreenController {
             btn.setOnAction(evt -> {
                 Parent loginFrame;
                 try {
-                    loginFrame = FXMLLoader.load(getClass().getClassLoader().getResource("parking_lot_admin_screen.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/parking_lot_admin_screen.fxml"));
+                    fxmlLoader.setControllerFactory(springContext::getBean);
+                    loginFrame = fxmlLoader.load();
                     stage.setTitle("Parking Lot " + id);
                     stage.setScene(new Scene(loginFrame, 600, 400));
                 } catch (IOException ex) {
@@ -214,7 +223,9 @@ public class ParkingLotAdminScreenController {
         back.setOnAction(evt -> {
             Parent loginFrame;
             try {
-                loginFrame = FXMLLoader.load(getClass().getClassLoader().getResource("parking_lot_admin_screen.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/parking_lot_admin_screen.fxml"));
+                fxmlLoader.setControllerFactory(springContext::getBean);
+                loginFrame = fxmlLoader.load();
                 stage.setTitle(title);
                 stage.setScene(new Scene(loginFrame, 600, 400));
             } catch (IOException ex) {

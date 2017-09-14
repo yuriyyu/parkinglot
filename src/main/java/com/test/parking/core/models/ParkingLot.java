@@ -28,6 +28,11 @@ public abstract class ParkingLot {
     @OneToMany(mappedBy = "parkingLot",cascade = CascadeType.ALL, orphanRemoval = true)
     List<Tariff> tariffs;
 
+    public ParkingLot() {
+
+    }
+
+
     public ParkingLot(int id) {
         this.id = id;
     }
@@ -60,5 +65,14 @@ public abstract class ParkingLot {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("ParkingLot{");
+        sb.append("id=").append(id);
+        sb.append(", size=").append(size);
+        sb.append('}');
+        return sb.toString();
     }
 }

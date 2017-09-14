@@ -18,14 +18,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.stereotype.Component;
 
 /**
  * FXML Controller class
  *
  * @author 986026
  */
+@Component
 public class TicketScreenController 
         implements Initializable {
+
 
     @FXML
     private ImageView imageQRCode;

@@ -17,15 +17,21 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.stereotype.Component;
 
 /**
  * FXML Controller class
  *
  * @author 986026
  */
+@Component
 public class PaymentScreenController 
         implements Initializable {
-    
+    @Autowired
+    private ConfigurableApplicationContext springContext;
+
     @FXML
     private Button cancelButton;
     
@@ -51,8 +57,10 @@ public class PaymentScreenController
             throws Exception {
         
         Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("ticket_screen.fxml"));
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ticket_screen.fxml"));
+        fxmlLoader.setControllerFactory(springContext::getBean);
+        Parent root = fxmlLoader.load();
         Scene mainScene = new Scene(root, 600, 400);
     	
         primaryStage.setTitle("Ticket Info");

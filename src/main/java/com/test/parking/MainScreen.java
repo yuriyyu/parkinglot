@@ -32,34 +32,62 @@
 
 package com.test.parking;
 
-import com.test.parking.ui.AbstractJavaFxApplicationSupport;
+import com.test.parking.ui.admin.MainScreenController;
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.*;
 
+import java.io.IOException;
+
+//@Lazy
 @SpringBootApplication
 @Configuration
 @ComponentScan(basePackages="com.test.parking")
 @EntityScan(basePackages = "com.test.parking")
 public class MainScreen
-        extends AbstractJavaFxApplicationSupport {
-    
+        extends Application {
+
     public static void main(String[] args) {
-//        Application.launch(MainScreen.class, args);
-        launchApp(MainScreen.class, args);
+        Application.launch(MainScreen.class, args);
+//        launch(args);
+//        launchApp(MainScreen.class, args);
     }
-    
+    private ConfigurableApplicationContext springContext;
+    private Parent root;
+
+
+    @Override
+    public void init() throws Exception {
+        springContext = SpringApplication.run(MainScreen.class);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main_screen.fxml"));
+        fxmlLoader.setControllerFactory(springContext::getBean);
+        root = fxmlLoader.load();
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
-        Parent mainFrame = FXMLLoader.load(getClass().getClassLoader().getResource("main_screen.fxml"));
+//        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("main_screen.fxml"));
+//        loader.setControllerFactory(applicationContext::getBean);
+//        Parent mainFrame = loader.load();
+
+//        Parent mainFrame = FXMLLoader.load(getClass().getClassLoader().getResource("main_screen.fxml"));
+
+//        Object obj = loader.load("main_screen.fxml");
+//        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("main_screen.fxml"));
 
         stage.setTitle("Parking Lot MS");
-        stage.setScene(new Scene(mainFrame, 300, 275));
+        stage.setScene(new Scene(root, 300, 275));
+        stage.setResizable(false);
+        stage.centerOnScreen();
         stage.show();
     }
 }
