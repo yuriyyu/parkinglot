@@ -15,8 +15,8 @@ public class GroundParkingLot
     private final String address;
 
 
-    public GroundParkingLot(int id, String address, int parkingSize) {
-        super(id, parkingSize);
+    public GroundParkingLot(int id, String address) {
+        super(id);
         this.address = address;
 
     }

@@ -28,10 +28,8 @@ public abstract class ParkingLot {
     @OneToMany(mappedBy = "parkingLot",cascade = CascadeType.ALL, orphanRemoval = true)
     List<Tariff> tariffs;
 
-    public ParkingLot(int id, int size) {
+    public ParkingLot(int id) {
         this.id = id;
-        this.size = size;
-        this.parkingSlots = new ArrayList<>(size);
     }
 
     public void setSize(int size) {
