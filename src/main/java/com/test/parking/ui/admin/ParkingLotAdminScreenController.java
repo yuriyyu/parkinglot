@@ -6,7 +6,12 @@
 package com.test.parking.ui.admin;
 
 import com.test.parking.core.models.GroundParkingLot;
+import com.test.parking.core.models.tariffs.BikeTariff;
+import com.test.parking.core.models.tariffs.CarTariff;
+import com.test.parking.core.models.tariffs.DisabledTariff;
 import com.test.parking.core.models.tariffs.Tariff;
+import com.test.parking.core.models.tariffs.TruckTariff;
+import com.test.parking.core.services.TariffService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -41,10 +46,14 @@ import javafx.stage.Stage;
  * @author 986056
  */
 public class ParkingLotAdminScreenController {
+    private int parkingLotId;
     
     @FXML protected void handleChangeTariffsButtonAction(ActionEvent event) throws Exception {
     	Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         String title = stage.getTitle();
+        String[] titleParts = title.split("\\s+");
+        parkingLotId = Integer.parseInt(titleParts[2]);
+        
         
         Group root = new Group();
         Scene scene = new Scene(root, 400, 250, Color.WHITE);
@@ -54,11 +63,24 @@ public class ParkingLotAdminScreenController {
 
         BorderPane borderPane = new BorderPane();
         
-//        Tab normalTab = createTab(new NormalTariff(), stage, title);
-//        Tab holidayTab = createTab(new HolidayTariff(), stage, title);
+        TariffService tariffService = new TariffService(null, null, null);
+        ArrayList<Tariff> tariffs = (ArrayList) tariffService.getParkingLotTariffs(parkingLotId);
         
-//        tabPane.getTabs().add(normalTab);
-//        tabPane.getTabs().add(holidayTab);
+        ArrayList<Tariff> normalTariffs = new ArrayList<>();
+        ArrayList<Tariff> holidayTariffs = new ArrayList<>();
+        for(Tariff t : tariffs) {
+            if(t.isHoliday()) {
+                holidayTariffs.add(t);
+            } else {
+                normalTariffs.add(t);
+            }
+        }
+        
+        Tab normalTab = createTab(normalTariffs, "Normal", stage, title);
+        Tab holidayTab = createTab(holidayTariffs, "Holiday", stage, title);
+        
+        tabPane.getTabs().add(normalTab);
+        tabPane.getTabs().add(holidayTab);
         // bind to take available space
         borderPane.prefHeightProperty().bind(scene.heightProperty());
         borderPane.prefWidthProperty().bind(scene.widthProperty());
@@ -138,18 +160,20 @@ public class ParkingLotAdminScreenController {
         stage.setScene(scene);
     }
     
-    private Tab createTab(Tariff tariff, Stage stage, String title) {
-        //price will be recieved from tariff
-        String[] price = {"10", "20", "30", "40"};
-        //type of tariff
-        String type;
+    private Tab createTab(ArrayList<Tariff> tariffs, String type, Stage stage, String title) throws Exception {
         
-//        if(tariff instanceof NormalTariff) {
-//            type = "Normal";
-//        } else {
-            type = "Holiday";
-            price[0] = "20"; price[1] = "40"; price[2] = "60"; price[3] = "80";
-//        }
+        Tariff carsTariff = tariffs.stream()
+                    .filter(tariff -> tariff instanceof CarTariff)
+                    .findFirst().orElseThrow(Exception::new);
+        Tariff truckTariff = tariffs.stream()
+                    .filter(tariff -> tariff instanceof TruckTariff)
+                    .findFirst().orElseThrow(Exception::new);
+        Tariff bikeTariff = tariffs.stream()
+                    .filter(tariff -> tariff instanceof BikeTariff)
+                    .findFirst().orElseThrow(Exception::new);
+        Tariff disabledTariff = tariffs.stream()
+                    .filter(tariff -> tariff instanceof DisabledTariff)
+                    .findFirst().orElseThrow(Exception::new);
         
         Label lCar = new Label("Cars");
         lCar.setFont(new Font("Tahoma", 18));
@@ -160,14 +184,14 @@ public class ParkingLotAdminScreenController {
         Label lDisabled = new Label("Disabled");
         lDisabled.setFont(new Font("Tahoma", 18));
         
-        TextField carsField = new TextField(price[0]);
-        TextField trucksField = new TextField(price[1]);
-        TextField motoField = new TextField(price[2]);
-        TextField disabledField = new TextField(price[3]);
+        TextField carsField = new TextField(Double.toString(carsTariff.getPrice()));
+        TextField trucksField = new TextField(Double.toString(truckTariff.getPrice()));
+        TextField motoField = new TextField(Double.toString(bikeTariff.getPrice()));
+        TextField disabledField = new TextField(Double.toString(disabledTariff.getPrice()));
         
 
         Tab tab = new Tab();
-        tab.setText(type);
+        tab.setText("Normal");
         HBox content = new HBox();
         VBox vehicleNames = new VBox(5);
         vehicleNames.setPadding(new Insets(48, 40, 48, 40));
