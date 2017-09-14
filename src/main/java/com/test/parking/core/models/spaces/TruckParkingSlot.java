@@ -11,6 +11,10 @@ import javax.persistence.Entity;
 public class TruckParkingSlot
         extends ParkingSlot {
 
+    public TruckParkingSlot() {
+        super();
+    }
+
     public TruckParkingSlot(String column, int row) {
         super(column, row);
     }

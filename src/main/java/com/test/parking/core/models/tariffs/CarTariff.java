@@ -12,4 +12,8 @@ import javax.persistence.Entity;
 @DiscriminatorValue("car")
 public class CarTariff
         extends Tariff {
+
+    public CarTariff() {
+        super();
+    }
 }

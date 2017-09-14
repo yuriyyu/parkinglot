@@ -27,4 +27,8 @@ public class Ticket {
 
     private LocalDateTime createDate;
 
+    public Ticket(){
+
+    }
+
 }

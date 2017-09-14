@@ -7,9 +7,13 @@ import javax.persistence.Entity;
  * Created by User on 7/4/2016.
  */
 @Entity
-@DiscriminatorValue(value = "Car")
+@DiscriminatorValue(value = "car")
 public class Car
         extends Vehicle {
+
+    public Car() {
+        super();
+    }
 
     @Override
     public boolean canParkInNormalSlot() {

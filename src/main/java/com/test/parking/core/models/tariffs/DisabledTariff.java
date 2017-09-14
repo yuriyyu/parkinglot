@@ -12,4 +12,8 @@ import javax.persistence.Entity;
 @DiscriminatorValue("disabled")
 public class DisabledTariff
         extends Tariff {
+
+    public DisabledTariff() {
+        super();
+    }
 }

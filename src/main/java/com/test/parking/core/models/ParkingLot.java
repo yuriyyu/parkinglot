@@ -32,7 +32,6 @@ public abstract class ParkingLot {
 
     }
 
-
     public ParkingLot(int id) {
         this.id = id;
     }

@@ -28,6 +28,9 @@ public abstract class Tariff {
 
     protected double price;
 
+    public Tariff(){
+
+    }
 
     public int getId() {
         return id;

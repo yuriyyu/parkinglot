@@ -35,6 +35,10 @@ public class Registration {
 
     private LocalDateTime createDate;
 
+    public Registration() {
+
+    }
+
     public Ticket getTicket() {
         return ticket;
     }

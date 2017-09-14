@@ -21,6 +21,10 @@ public class NormalTicket
 
     private byte[] qrCode;
 
+    public NormalTicket() {
+        super();
+    }
+
     public int getOccupiedTime() {
         return occupiedTime;
     }

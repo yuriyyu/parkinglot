@@ -28,6 +28,8 @@ public abstract class ParkingSlot {
 
     private int row;
 
+    public ParkingSlot(){}
+
     public ParkingSlot(String column, int row) {
         this.col = column;
         this.row = row;

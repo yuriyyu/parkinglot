@@ -19,6 +19,10 @@ public class FineTicket
     @Column(name = "exceeded_time")
     private int exceededTime;
 
+    public FineTicket() {
+        super();
+    }
+
     public double getFineCost() {
         return fineCost;
     }

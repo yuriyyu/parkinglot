@@ -15,7 +15,7 @@ public class GroundParkingLot
     private String address;
 
     public GroundParkingLot() {
-
+        super();
     }
 
     public GroundParkingLot(int id, String address) {

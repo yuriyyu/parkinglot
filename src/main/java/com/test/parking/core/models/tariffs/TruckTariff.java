@@ -12,4 +12,8 @@ import javax.persistence.Entity;
 @DiscriminatorValue("truck")
 public class TruckTariff
         extends Tariff {
+
+    public TruckTariff() {
+        super();
+    }
 }

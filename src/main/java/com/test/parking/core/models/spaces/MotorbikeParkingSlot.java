@@ -13,6 +13,10 @@ import javax.persistence.Entity;
 public class MotorbikeParkingSlot
         extends ParkingSlot {
 
+    public MotorbikeParkingSlot() {
+        super();
+    }
+
     public MotorbikeParkingSlot(String column, int row) {
         super(column, row);
     }

@@ -18,6 +18,10 @@ public abstract class Vehicle {
     @Column(unique = true)
     protected String vehicleNumber;
 
+    public Vehicle() {
+
+    }
+
     public abstract boolean canParkInNormalSlot();
     public abstract boolean canParkInLargeSlot();
 
