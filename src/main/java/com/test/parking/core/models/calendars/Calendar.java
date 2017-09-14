@@ -18,7 +18,6 @@ public class Calendar {
     protected Map<Integer, List<Integer>> yearHolidays;
 
     public Calendar() {
-
         this.buildHolidaysMap(yearHolidays);
     }
 

@@ -32,9 +32,6 @@ public class PaymentScreenController
     @FXML
     private Button submitButton;
     
-    @FXML
-    private TextField vehicleNumberText;
-    
     /**
      * Initializes the controller class.
      */

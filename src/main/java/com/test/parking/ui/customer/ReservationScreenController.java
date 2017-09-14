@@ -36,6 +36,8 @@ public class ReservationScreenController
     @FXML
     private Pane bottomPane;
     @FXML
+    private TextField vehicleNumberText;
+    @FXML
     private TextField typeText;
     @FXML
     private TextField priceText;
@@ -45,7 +47,6 @@ public class ReservationScreenController
     private Button cancelButton;
     @FXML
     private Button continueButton;
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         dateLabel.setText("Today");

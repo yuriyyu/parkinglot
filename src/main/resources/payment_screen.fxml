@@ -11,11 +11,9 @@
    <children>
       <Pane layoutX="6.0" layoutY="8.0" prefHeight="385.0" prefWidth="588.0">
          <children>
-            <TextField fx:id="vehicleNumberText" layoutX="145.0" layoutY="95.0" />
-            <Label layoutX="45.0" layoutY="99.0" text="Vehicle Number" />
             <Button fx:id="submitButton" layoutX="312.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleSubmitButtonAction" text="Submit" />
             <Button fx:id="cancelButton" layoutX="229.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleCancelButtonAction" text="Cancel" />
-            <TextField alignment="CENTER" disable="true" editable="false" layoutX="45.0" layoutY="140.0" prefHeight="154.0" prefWidth="487.0" text="PAYMENT INFO HERE" />
+            <TextField alignment="CENTER" disable="true" editable="false" layoutX="45.0" layoutY="78.0" prefHeight="216.0" prefWidth="487.0" text="PAYMENT INFO HERE" />
             <Label layoutX="236.0" layoutY="31.0" text="Payment Info">
                <font>
                   <Font size="20.0" />

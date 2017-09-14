@@ -13,8 +13,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tariffs")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "TARIFF_TYPE")
-public class Tariff {
+@DiscriminatorColumn(name = "VEHICLE_TYPE")
+public abstract class Tariff {
 
     @Id
     @GeneratedValue
@@ -43,5 +43,21 @@ public class Tariff {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public boolean isHoliday() {
+        return isHoliday;
+    }
+
+    public void setHoliday(boolean holiday) {
+        isHoliday = holiday;
+    }
+
+    public ParkingLot getParkingLot() {
+        return parkingLot;
+    }
+
+    public void setParkingLot(ParkingLot parkingLot) {
+        this.parkingLot = parkingLot;
     }
 }

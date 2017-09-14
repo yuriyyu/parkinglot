@@ -17,8 +17,8 @@ public abstract class ParkingSlot {
     @GeneratedValue
     protected int id;
 
-    @OneToOne(mappedBy = "parkingSlot",cascade = CascadeType.ALL)
-    protected Registration registration;
+//    @OneToOne(mappedBy = "parkingSlot",cascade = CascadeType.ALL)
+//    protected Registration registration;
 
     @ManyToOne()
     @JoinColumn(name = "parking_id")
@@ -33,14 +33,14 @@ public abstract class ParkingSlot {
         this.row = row;
     }
 
-    public Registration getRegistration() {
-        return registration;
-    }
-
-    public void setRegistration(Registration registration) {
-        this.registration = registration;
-    }
-
+//    public Registration getRegistration() {
+//        return registration;
+//    }
+//
+//    public void setRegistration(Registration registration) {
+//        this.registration = registration;
+//    }
+//
     public ParkingLot getParkingLot() {
         return parkingLot;
     }

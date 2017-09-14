@@ -8,7 +8,8 @@ import javax.persistence.Entity;
  *
  * @author Yuriy Yugay
  */
-//@Entity
-//@DiscriminatorValue("normal")
-public class TruckTariff {
+@Entity
+@DiscriminatorValue("truck")
+public class TruckTariff
+        extends Tariff {
 }
