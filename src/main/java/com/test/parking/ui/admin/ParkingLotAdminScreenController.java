@@ -5,7 +5,10 @@
  */
 package com.test.parking.ui.admin;
 
+import com.test.parking.core.factories.TariffFactory;
 import com.test.parking.core.models.GroundParkingLot;
+import com.test.parking.core.models.ParkingLot;
+import com.test.parking.core.models.VehicleType;
 import com.test.parking.core.models.tariffs.BikeTariff;
 import com.test.parking.core.models.tariffs.CarTariff;
 import com.test.parking.core.models.tariffs.DisabledTariff;
@@ -14,6 +17,7 @@ import com.test.parking.core.models.tariffs.TruckTariff;
 import com.test.parking.core.services.TariffService;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -63,8 +67,9 @@ public class ParkingLotAdminScreenController {
 
         BorderPane borderPane = new BorderPane();
         
-        TariffService tariffService = new TariffService(null, null, null);
-        ArrayList<Tariff> tariffs = (ArrayList) tariffService.getParkingLotTariffs(parkingLotId);
+        //TariffService tariffService = new TariffService(null, null, null);
+        ArrayList<Tariff> tariffs = (ArrayList) createTariffs();
+        //ArrayList<Tariff> tariffs = (ArrayList) tariffService.getParkingLotTariffs(parkingLotId);
         
         ArrayList<Tariff> normalTariffs = new ArrayList<>();
         ArrayList<Tariff> holidayTariffs = new ArrayList<>();
@@ -191,7 +196,7 @@ public class ParkingLotAdminScreenController {
         
 
         Tab tab = new Tab();
-        tab.setText("Normal");
+        tab.setText(type);
         HBox content = new HBox();
         VBox vehicleNames = new VBox(5);
         vehicleNames.setPadding(new Insets(48, 40, 48, 40));
@@ -234,5 +239,45 @@ public class ParkingLotAdminScreenController {
         tab.setContent(content);
         
         return tab;
+    }
+    
+    private List<Tariff> createTariffs() {
+        ArrayList<Tariff> tariffs = new ArrayList<>();
+        TariffFactory factory = new TariffFactory();
+        
+        CarTariff carTariffNormal = (CarTariff) factory.createTariff(VehicleType.CAR);
+        setTariffProperties(carTariffNormal, 5.0, false, null);
+        TruckTariff truckTariffNormal = (TruckTariff) factory.createTariff(VehicleType.TRUCK);
+        setTariffProperties(truckTariffNormal, 10.0, false, null);
+        BikeTariff bikeTariffNormal = (BikeTariff) factory.createTariff(VehicleType.BIKE);
+        setTariffProperties(bikeTariffNormal, 2.0, false, null);
+        DisabledTariff disabledTariffNormal = (DisabledTariff) factory.createTariff(VehicleType.DISABLED);
+        setTariffProperties(disabledTariffNormal, 3.0, false, null);
+        
+        CarTariff carTariffHoliday = (CarTariff) factory.createTariff(VehicleType.CAR);
+        setTariffProperties(carTariffHoliday, 8.0, true, null);
+        TruckTariff truckTariffHoliday = (TruckTariff) factory.createTariff(VehicleType.TRUCK);
+        setTariffProperties(truckTariffHoliday, 15.0, true, null);
+        BikeTariff bikeTariffHoliday = (BikeTariff) factory.createTariff(VehicleType.BIKE);
+        setTariffProperties(bikeTariffHoliday, 4.0, true, null);
+        DisabledTariff disabledTariffHoliday = (DisabledTariff) factory.createTariff(VehicleType.DISABLED);
+        setTariffProperties(disabledTariffHoliday, 4.0, true, null);
+        
+        tariffs.add(carTariffNormal);
+        tariffs.add(truckTariffNormal);
+        tariffs.add(bikeTariffNormal);
+        tariffs.add(disabledTariffNormal);
+        tariffs.add(carTariffHoliday);
+        tariffs.add(truckTariffHoliday);
+        tariffs.add(bikeTariffHoliday);
+        tariffs.add(disabledTariffHoliday);
+        
+        return tariffs;
+    }
+    
+    private void setTariffProperties(Tariff tariff, Double price, boolean isHoliday, ParkingLot parkingLot) {
+        tariff.setPrice(price);
+        tariff.setHoliday(isHoliday);
+        tariff.setParkingLot(parkingLot);
     }
 }
