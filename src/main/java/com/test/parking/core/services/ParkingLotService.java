@@ -7,13 +7,11 @@ package com.test.parking.core.services;
 
 import com.test.parking.core.models.GroundParkingLot;
 import com.test.parking.core.models.ParkingLot;
-import com.test.parking.core.models.spaces.ParkingSlot;
 import com.test.parking.core.repositories.ParkingLotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import org.springframework.context.annotation.Scope;
 
 /**
  *
@@ -48,6 +46,10 @@ public class ParkingLotService {
         ParkingSlotService parkingSlotService = new ParkingSlotService(null, null, null);
         parkingLot.setParkingSlots(parkingSlotService.createParkingSlots(id, carSlotsNum,
                 truckSlotsNum, bikeSlotsNum, disabledSlotsNum));
+        
+        TariffService ts = new TariffService(null, null, parkingLotRepository);
+        parkingLot.setTariffs(ts.createTariffs(id));
+        
         addParkingLot(parkingLot);
 
         return parkingLot;

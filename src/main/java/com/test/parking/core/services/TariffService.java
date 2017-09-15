@@ -6,6 +6,7 @@ import com.test.parking.core.models.tariffs.Tariff;
 import com.test.parking.core.models.VehicleType;
 import com.test.parking.core.repositories.ParkingLotRepository;
 import com.test.parking.core.repositories.TariffRepository;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,7 @@ public class TariffService {
         this.parkingLotRepository = parkingLotRepository;
     }
 
-    public void createTariff(VehicleType type, int parkingLotId, int price, boolean isHoliday) {
+    public Tariff createTariff(VehicleType type, int parkingLotId, double price, boolean isHoliday) {
         ParkingLot parkingLot = parkingLotRepository.findOne(parkingLotId);
 
         Tariff tariff = tariffFactory.createTariff(type);
@@ -42,6 +43,23 @@ public class TariffService {
         tariff.setParkingLot(parkingLot);
 
         tariffRepository.save(tariff);
+        
+        return tariff;
+    }
+    
+    public List<Tariff> createTariffs(int parkingLotId) {
+        ArrayList<Tariff> tariffs = new ArrayList<>();
+        tariffs.add(createTariff(VehicleType.CAR, parkingLotId, 0.0, false));
+        tariffs.add(createTariff(VehicleType.TRUCK, parkingLotId, 0.0, false));
+        tariffs.add(createTariff(VehicleType.BIKE, parkingLotId, 0.0, false));
+        tariffs.add(createTariff(VehicleType.DISABLED, parkingLotId, 0.0, false));
+        
+        tariffs.add(createTariff(VehicleType.CAR, parkingLotId, 0.0, true));
+        tariffs.add(createTariff(VehicleType.TRUCK, parkingLotId, 0.0, true));
+        tariffs.add(createTariff(VehicleType.BIKE, parkingLotId, 0.0, true));
+        tariffs.add(createTariff(VehicleType.DISABLED, parkingLotId, 0.0, true));
+        
+        return tariffs;
     }
 
     public List<Tariff> getParkingLotTariffs(int parkingLotId) {

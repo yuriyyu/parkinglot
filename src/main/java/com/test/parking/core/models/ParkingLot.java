@@ -53,6 +53,10 @@ public abstract class ParkingLot {
             this.parkingSlots.addAll(parkingSlots);
         }
     }
+    
+    public void setTariffs(List<Tariff> tariffs) {
+        this.tariffs = tariffs;
+    }
 
     public int getSize() {
         return size;
@@ -74,4 +78,5 @@ public abstract class ParkingLot {
         sb.append('}');
         return sb.toString();
     }
+    
 }
