@@ -21,10 +21,15 @@ import java.util.List;
 public class ParkingLotService {
 
     private ParkingLotRepository parkingLotRepository;
+    private TariffService tariffService;
+    private ParkingSlotService parkingSlotService;
 
     @Autowired
-    public ParkingLotService(ParkingLotRepository parkingLotRepository) {
+    public ParkingLotService(ParkingLotRepository parkingLotRepository,
+            TariffService tariffService, ParkingSlotService parkingSlotService) {
         this.parkingLotRepository = parkingLotRepository;
+        this.tariffService = tariffService;
+        this.parkingSlotService = parkingSlotService;
     }
 
     public List<ParkingLot> getParkingLots() {
@@ -43,12 +48,10 @@ public class ParkingLotService {
                                        //6, 12, 6, 6
                                        int carSlotsNum, int truckSlotsNum, int bikeSlotsNum, int disabledSlotsNum) {
         ParkingLot parkingLot = new GroundParkingLot(id, address);
-        ParkingSlotService parkingSlotService = new ParkingSlotService(null, null, null);
         parkingLot.setParkingSlots(parkingSlotService.createParkingSlots(id, carSlotsNum,
                 truckSlotsNum, bikeSlotsNum, disabledSlotsNum));
         
-        TariffService ts = new TariffService(null, null, parkingLotRepository);
-        parkingLot.setTariffs(ts.createTariffs(id));
+        parkingLot.setTariffs(tariffService.createTariffs(id));
         
         addParkingLot(parkingLot);
 

@@ -8,7 +8,6 @@ package com.test.parking.core.services;
 import com.test.parking.core.factories.ParkingSlotFactory;
 import com.test.parking.core.models.ParkingLot;
 import com.test.parking.core.models.VehicleType;
-import com.test.parking.core.models.spaces.DisabledParkingSlot;
 import com.test.parking.core.models.spaces.ParkingSlot;
 import com.test.parking.core.repositories.ParkingLotRepository;
 import com.test.parking.core.repositories.ParkingSlotRepository;
