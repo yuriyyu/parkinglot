@@ -7,9 +7,13 @@ package com.test.parking.core.services;
 
 import com.test.parking.core.factories.ParkingSlotFactory;
 import com.test.parking.core.models.ParkingLot;
+import com.test.parking.core.models.VehicleType;
+import com.test.parking.core.models.spaces.DisabledParkingSlot;
 import com.test.parking.core.models.spaces.ParkingSlot;
 import com.test.parking.core.repositories.ParkingLotRepository;
 import com.test.parking.core.repositories.ParkingSlotRepository;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,9 +51,57 @@ public class ParkingSlotService {
         parkingSlotRepository.save(parkingSlot);
     }
 
-    public void createParkingSlots(int parkingLotId,
+    public List<ParkingSlot> createParkingSlots(int parkingLotId,
             int carSlotsNum, int truckSlotsNum, int bikeSlotsNum, int disabledSlotsNum) {
+        ArrayList<ParkingSlot> parkingSlots = new ArrayList<>();
         ParkingLot parkingLot = parkingLotRepository.findOne(parkingLotId);
         String[] alphabet = "abcdefghijklmnopqrstuvwxyz".toUpperCase().split("");
+        int letterNum = 0;
+
+        for(int i = 0; i < disabledSlotsNum; i++) {
+            String letter = alphabet[letterNum];
+            for(int j = 1; j < 7; j++) {
+                ParkingSlot parkingSlot = slotFactory.createParkingSlot(VehicleType.DISABLED, letter, j);
+                parkingSlot.setParkingLot(parkingLot);
+                addParkingSlot(parkingSlot);
+                parkingSlots.add(parkingSlot);
+            }
+            letterNum++;
+        }
+
+        for(int i = 0; i < disabledSlotsNum; i++) {
+            String letter = alphabet[letterNum];
+            for(int j = 1; j < 7; j++) {
+                ParkingSlot parkingSlot = slotFactory.createParkingSlot(VehicleType.CAR, letter, j);
+                parkingSlot.setParkingLot(parkingLot);
+                addParkingSlot(parkingSlot);
+                parkingSlots.add(parkingSlot);
+            }
+            letterNum++;
+        }
+
+        for(int i = 0; i < disabledSlotsNum; i++) {
+            String letter = alphabet[letterNum];
+            for(int j = 1; j < 7; j++) {
+                ParkingSlot parkingSlot = slotFactory.createParkingSlot(VehicleType.TRUCK, letter, j);
+                parkingSlot.setParkingLot(parkingLot);
+                addParkingSlot(parkingSlot);
+                parkingSlots.add(parkingSlot);
+            }
+            letterNum++;
+        }
+
+        for(int i = 0; i < disabledSlotsNum; i++) {
+            String letter = alphabet[letterNum];
+            for(int j = 1; j < 7; j++) {
+                ParkingSlot parkingSlot = slotFactory.createParkingSlot(VehicleType.BIKE, letter, j);
+                parkingSlot.setParkingLot(parkingLot);
+                addParkingSlot(parkingSlot);
+                parkingSlots.add(parkingSlot);
+            }
+            letterNum++;
+        }
+
+        return parkingSlots;
     }
 }

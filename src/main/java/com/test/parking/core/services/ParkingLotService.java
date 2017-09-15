@@ -5,7 +5,9 @@
  */
 package com.test.parking.core.services;
 
+import com.test.parking.core.models.GroundParkingLot;
 import com.test.parking.core.models.ParkingLot;
+import com.test.parking.core.models.spaces.ParkingSlot;
 import com.test.parking.core.repositories.ParkingLotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,5 +35,21 @@ public class ParkingLotService {
 
     public ParkingLot getParkingLot(Integer id) {
         return parkingLotRepository.findOne(id);
+    }
+
+    public void addParkingLot(ParkingLot parkingLot) {
+        parkingLotRepository.save(parkingLot);
+    }
+
+    public ParkingLot createParkingLot(int id, String address,
+                                       //6, 12, 6, 6
+                                       int carSlotsNum, int truckSlotsNum, int bikeSlotsNum, int disabledSlotsNum) {
+        ParkingLot parkingLot = new GroundParkingLot(id, address);
+        ParkingSlotService parkingSlotService = new ParkingSlotService(null, null, null);
+        parkingLot.setParkingSlots(parkingSlotService.createParkingSlots(id, carSlotsNum,
+                truckSlotsNum, bikeSlotsNum, disabledSlotsNum));
+        addParkingLot(parkingLot);
+
+        return parkingLot;
     }
 }
