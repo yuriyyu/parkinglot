@@ -8,6 +8,7 @@ import com.test.parking.core.models.ParkingLot;
 import com.test.parking.core.models.spaces.ParkingSlot;
 import com.test.parking.core.services.ParkingLotService;
 import com.test.parking.core.services.ParkingSlotService;
+import com.test.parking.core.services.RegistrationService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -62,6 +63,8 @@ public class ReservationScreenController
 
     @Autowired
     private ParkingLotService parkingLotService;
+    @Autowired
+    private RegistrationService registrationService;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -70,7 +73,8 @@ public class ReservationScreenController
         ObservableList<String> elements = FXCollections.observableArrayList(
                 new String("30 minutes"),
                 new String("60 minutes"),
-                new String("90 minutes")
+                new String("90 minutes"),
+                new String("120 minutes")
         );
 
         timePicker.setItems(elements);
@@ -89,7 +93,12 @@ public class ReservationScreenController
     @FXML
     protected void handleContinueButtonAction(ActionEvent event) 
             throws Exception {
-        
+        String[] splitted = timePicker.getValue().split(" ");
+        int time = Integer.valueOf(splitted[0]);
+        System.out.println("Time in minutes: " + time);
+
+        registrationService.createRegistration(vehicleNumberText.getText(), 1, time);
+
         Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/payment_screen.fxml"));

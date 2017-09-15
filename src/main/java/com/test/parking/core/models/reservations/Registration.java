@@ -24,8 +24,6 @@ public class Registration {
     @JoinColumn(name = "parking_slot_id")
     private ParkingSlot parkingSlot;
 
-//    private Vehicle vehicle;
-
 //    private Tariff tariff;
 
     @OneToOne(mappedBy = "registration",cascade = CascadeType.ALL)
@@ -35,8 +33,38 @@ public class Registration {
 
     private LocalDateTime createDate;
 
+    private LocalDateTime fromDate;
+
+    private LocalDateTime toDate;
+
+    private String vehicleNumber;
+
     public Registration() {
 
+    }
+
+    public LocalDateTime getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(LocalDateTime fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public LocalDateTime getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(LocalDateTime toDate) {
+        this.toDate = toDate;
+    }
+
+    public String getVehicleNumber() {
+        return vehicleNumber;
+    }
+
+    public void setVehicleNumber(String vehicleNumber) {
+        this.vehicleNumber = vehicleNumber;
     }
 
     public Ticket getTicket() {
@@ -63,14 +91,6 @@ public class Registration {
         this.parkingSlot = parkingSlot;
     }
 
-//    public Vehicle getVehicle() {
-//        return vehicle;
-//    }
-//
-//    public void setVehicle(Vehicle vehicle) {
-//        this.vehicle = vehicle;
-//    }
-//
 //    public Tariff getTariff() {
 //        return tariff;
 //    }

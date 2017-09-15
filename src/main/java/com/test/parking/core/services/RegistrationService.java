@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 /**
  * Created by Yuriy Yugay on 9/13/2017.
@@ -27,13 +28,21 @@ public class RegistrationService {
         this.registrationRepository = registrationRepository;
     }
 
-    public void createRegistration (int parkingSlotId, int time) {
+    public void createRegistration (String vehicleNumber, int parkingSlotId, int time) {
         ParkingSlot parkingSlot = parkingSlotRepository.findOne(parkingSlotId);
 
         Registration registration = new Registration();
+        registration.setVehicleNumber(vehicleNumber);
         registration.setParkingSlot(parkingSlot);
         registration.setTime(time);
-        registration.setCreateDate(LocalDateTime.now());
+
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        long dueTimeInSeconds = currentDateTime.toEpochSecond(ZoneOffset.of("-5")) + time * 60;
+        LocalDateTime dueDateTime = LocalDateTime.ofEpochSecond(dueTimeInSeconds, 0 , ZoneOffset.of("-5"));
+
+        registration.setCreateDate(currentDateTime);
+        registration.setFromDate(currentDateTime);
+        registration.setToDate(dueDateTime);
 
         registrationRepository.save(registration);
     }

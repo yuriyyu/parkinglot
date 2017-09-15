@@ -7,6 +7,8 @@ package com.test.parking.ui.customer;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.test.parking.core.services.TicketService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +33,8 @@ import org.springframework.stereotype.Component;
 public class TicketScreenController 
         implements Initializable {
 
+    @Autowired
+    private TicketService ticketService;
 
     @FXML
     private ImageView imageQRCode;
@@ -59,6 +63,7 @@ public class TicketScreenController
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        ticketService.createTicket();
         // TODO
     }    
     
