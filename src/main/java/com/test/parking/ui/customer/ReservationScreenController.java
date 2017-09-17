@@ -144,11 +144,25 @@ public class ReservationScreenController
                             Tariff tar = currentTariffMap.get(type);
                             priceText.setText(tar.getPrice() + " $");
                             typeText.setText(type.toValue());
+                            vehicleNumberText.setText(sSlot.getOccupiedVehicleNumber());
 
                             if(!sSlot.isOccupied()) {
                                 bottomPane.setVisible(true);
+                                priceText.setEditable(true);
+                                vehicleNumberText.setEditable(true);
+                                vehicleNumberText.setDisable(false);
+                                timePicker.setDisable(false);
+                                cancelButton.setVisible(true);
+                                continueButton.setVisible(true);
+
                             } else {
-                                bottomPane.setVisible(false);
+                                bottomPane.setVisible(true);
+                                priceText.setEditable(false);
+                                vehicleNumberText.setEditable(false);
+                                vehicleNumberText.setDisable(true);
+                                timePicker.setDisable(true);
+                                cancelButton.setVisible(false);
+                                continueButton.setVisible(false);
                             }
                         }
                     });
@@ -185,9 +199,11 @@ public class ReservationScreenController
     @FXML
     protected void handleContinueButtonAction(ActionEvent event) 
             throws Exception {
+        if(vehicleNumberText.getText() == null || vehicleNumberText.getText().isEmpty()) {
+            return;
+        }
         String[] splitted = timePicker.getValue().split(" ");
         int time = Integer.valueOf(splitted[0]);
-        System.out.println("Time in minutes: " + time);
 
         Registration registration = registrationService.createRegistration(vehicleNumberText.getText(), 1, time);
 

@@ -77,17 +77,23 @@ public class MainScreenController
     private ParkingLotAdminScreenController parkingLotAdminScreenController;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // create stub parking lot
-        ParkingLot parkingLot = parkingLotService.createStubParking();
-        // create stub parking slots
-        List<ParkingSlot> parkingSlots = parkingSlotService.createStubSlots(parkingLot);
-        // create stub tariffs
-        tariffService.createStubTariffs(parkingLot);
-        // create stub registration
-        registrationService.createStubRegistrations(parkingSlots);
-
-        reservationScreenController.setParkingLotId(parkingLot.getId());
-        parkingLotAdminScreenController.setParkingLotId(parkingLot.getId());
+        List<ParkingLot> parkingLots = parkingLotService.getParkingLots();
+        int parkingLotId = 0;
+        if(parkingLots == null || parkingLots.isEmpty()) {
+            // create stub parking lot
+            ParkingLot parkingLot = parkingLotService.createStubParking();
+            parkingLotId = parkingLot.getId();
+            // create stub parking slots
+            List<ParkingSlot> parkingSlots = parkingSlotService.createStubSlots(parkingLot);
+            // create stub tariffs
+            tariffService.createStubTariffs(parkingLot);
+            // create stub registration
+            registrationService.createStubRegistrations(parkingSlots);
+        } else {
+            parkingLotId = parkingLots.get(0).getId();
+        }
+        reservationScreenController.setParkingLotId(parkingLotId);
+        parkingLotAdminScreenController.setParkingLotId(parkingLotId);
     }
 
     @FXML

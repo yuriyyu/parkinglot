@@ -50,7 +50,7 @@
             </Pane>
             <Pane GridPane.columnIndex="3" GridPane.rowIndex="2">
                <children>
-                  <Label layoutX="93.0" layoutY="6.0" text="D4" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <Label layoutX="93.0" layoutY="6.0" text="D3" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                </children>
             </Pane>
             <Pane GridPane.columnIndex="1">
@@ -145,17 +145,17 @@
             </Pane>
             <Pane GridPane.columnIndex="3" GridPane.rowIndex="3">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="93.0" layoutY="7.0" text="D5" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="93.0" layoutY="7.0" text="D4" />
                </children>
             </Pane>
             <Pane GridPane.columnIndex="3" GridPane.rowIndex="4">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="93.0" layoutY="6.0" text="D6" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="93.0" layoutY="6.0" text="D5" />
                </children>
             </Pane>
             <Pane GridPane.columnIndex="3" GridPane.rowIndex="5">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="93.0" layoutY="6.0" text="D7" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="93.0" layoutY="6.0" text="D6" />
                </children>
             </Pane>
             <Pane prefHeight="30.0" prefWidth="14.0" GridPane.columnIndex="4">

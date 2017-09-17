@@ -50,6 +50,14 @@ public abstract class ParkingSlot {
         return registration != null;
     }
 
+    @Transient
+    public String getOccupiedVehicleNumber() {
+        if(registration == null) {
+            return "";
+        }
+        return registration.getVehicleNumber();
+    }
+
     public VehicleType getType() {
         return VehicleType.fromValue(type);
     }
