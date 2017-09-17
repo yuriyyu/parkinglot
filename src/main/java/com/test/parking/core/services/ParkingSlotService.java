@@ -46,61 +46,25 @@ public class ParkingSlotService {
         return parkingSlotRepository.findOne(id);
     }
     
-    public void addParkingSlot(ParkingSlot parkingSlot) {
-        parkingSlotRepository.save(parkingSlot);
-    }
-
-    public List<ParkingSlot> createParkingSlots(int parkingLotId,
-            int carSlotsNum, int truckSlotsNum, int bikeSlotsNum, int disabledSlotsNum) {
+    public List<ParkingSlot> createStubSlots(ParkingLot parkingLot) {
         ArrayList<ParkingSlot> parkingSlots = new ArrayList<>();
-        ParkingLot parkingLot = parkingLotRepository.findOne(parkingLotId);
-        String[] alphabet = "abcdefghijklmnopqrstuvwxyz".toUpperCase().split("");
-        int letterNum = 0;
 
-        for(int i = 0; i < disabledSlotsNum; i++) {
-            String letter = alphabet[letterNum];
-            for(int j = 1; j < 7; j++) {
-                ParkingSlot parkingSlot = slotFactory.createParkingSlot(VehicleType.DISABLED, letter, j);
-                parkingSlot.setParkingLot(parkingLot);
-                addParkingSlot(parkingSlot);
-                parkingSlots.add(parkingSlot);
-            }
-            letterNum++;
+        for(int j = 1; j < 7; j++) {
+            // create disabled slot
+            ParkingSlot parkingSlotA = slotFactory.createParkingSlot(parkingLot, VehicleType.DISABLED, "A", j);
+            parkingSlots.add(parkingSlotA);
+            // create car slot
+            ParkingSlot parkingSlotB = slotFactory.createParkingSlot(parkingLot, VehicleType.CAR, "B", j);
+            parkingSlots.add(parkingSlotB);
+            ParkingSlot parkingSlotC = slotFactory.createParkingSlot(parkingLot, VehicleType.CAR, "C", j);
+            parkingSlots.add(parkingSlotC);
+            // create truck slot
+            ParkingSlot parkingSlotD = slotFactory.createParkingSlot(parkingLot, VehicleType.TRUCK, "D", j);
+            parkingSlots.add(parkingSlotD);
+            // create bike slot
+            ParkingSlot parkingSlotE = slotFactory.createParkingSlot(parkingLot, VehicleType.BIKE, "E", j);
+            parkingSlots.add(parkingSlotE);
         }
-
-        for(int i = 0; i < disabledSlotsNum; i++) {
-            String letter = alphabet[letterNum];
-            for(int j = 1; j < 7; j++) {
-                ParkingSlot parkingSlot = slotFactory.createParkingSlot(VehicleType.CAR, letter, j);
-                parkingSlot.setParkingLot(parkingLot);
-                addParkingSlot(parkingSlot);
-                parkingSlots.add(parkingSlot);
-            }
-            letterNum++;
-        }
-
-        for(int i = 0; i < disabledSlotsNum; i++) {
-            String letter = alphabet[letterNum];
-            for(int j = 1; j < 7; j++) {
-                ParkingSlot parkingSlot = slotFactory.createParkingSlot(VehicleType.TRUCK, letter, j);
-                parkingSlot.setParkingLot(parkingLot);
-                addParkingSlot(parkingSlot);
-                parkingSlots.add(parkingSlot);
-            }
-            letterNum++;
-        }
-
-        for(int i = 0; i < disabledSlotsNum; i++) {
-            String letter = alphabet[letterNum];
-            for(int j = 1; j < 7; j++) {
-                ParkingSlot parkingSlot = slotFactory.createParkingSlot(VehicleType.BIKE, letter, j);
-                parkingSlot.setParkingLot(parkingLot);
-                addParkingSlot(parkingSlot);
-                parkingSlots.add(parkingSlot);
-            }
-            letterNum++;
-        }
-
-        return parkingSlots;
+        return parkingSlotRepository.save(parkingSlots);
     }
 }

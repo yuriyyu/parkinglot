@@ -2,15 +2,20 @@ package com.test.parking.core.services;
 
 import com.test.parking.core.factories.TariffFactory;
 import com.test.parking.core.models.ParkingLot;
+import com.test.parking.core.models.calendars.HolidayCalendar;
 import com.test.parking.core.models.tariffs.Tariff;
 import com.test.parking.core.models.VehicleType;
 import com.test.parking.core.repositories.ParkingLotRepository;
 import com.test.parking.core.repositories.TariffRepository;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by Yuriy Yugay on 9/13/2017.
@@ -34,37 +39,34 @@ public class TariffService {
         this.parkingLotRepository = parkingLotRepository;
     }
 
-    public Tariff createTariff(VehicleType type, int parkingLotId, double price, boolean isHoliday) {
+    public Map<VehicleType, Tariff> getCurrentParkingLotTariffs(int parkingLotId) {
         ParkingLot parkingLot = parkingLotRepository.findOne(parkingLotId);
+        boolean isHoliday = HolidayCalendar.isHoliday(LocalDateTime.now());
 
-        Tariff tariff = tariffFactory.createTariff(type);
-        tariff.setPrice(price);
-        tariff.setHoliday(isHoliday);
-        tariff.setParkingLot(parkingLot);
-
-        tariffRepository.save(tariff);
-        
-        return tariff;
-    }
-    
-    public List<Tariff> createTariffs(int parkingLotId) {
-        ArrayList<Tariff> tariffs = new ArrayList<>();
-        tariffs.add(createTariff(VehicleType.CAR, parkingLotId, 0.0, false));
-        tariffs.add(createTariff(VehicleType.TRUCK, parkingLotId, 0.0, false));
-        tariffs.add(createTariff(VehicleType.BIKE, parkingLotId, 0.0, false));
-        tariffs.add(createTariff(VehicleType.DISABLED, parkingLotId, 0.0, false));
-        
-        tariffs.add(createTariff(VehicleType.CAR, parkingLotId, 0.0, true));
-        tariffs.add(createTariff(VehicleType.TRUCK, parkingLotId, 0.0, true));
-        tariffs.add(createTariff(VehicleType.BIKE, parkingLotId, 0.0, true));
-        tariffs.add(createTariff(VehicleType.DISABLED, parkingLotId, 0.0, true));
-        
-        return tariffs;
+        return tariffRepository.findByParkingLotAndHoliday(parkingLot, isHoliday)
+                .stream()
+                .collect(Collectors.toMap(Tariff::getType,tariff -> tariff));
     }
 
     public List<Tariff> getParkingLotTariffs(int parkingLotId) {
         ParkingLot parkingLot = parkingLotRepository.findOne(parkingLotId);
 
         return tariffRepository.findByParkingLot(parkingLot);
+    }
+
+    public List<Tariff> createStubTariffs(ParkingLot parkingLot) {
+        ArrayList<Tariff> tariffs = new ArrayList<>();
+        // normal tariffs
+        tariffs.add(tariffFactory.createTariff(VehicleType.CAR, parkingLot, 20, false));
+        tariffs.add(tariffFactory.createTariff(VehicleType.TRUCK, parkingLot, 30, false));
+        tariffs.add(tariffFactory.createTariff(VehicleType.BIKE, parkingLot, 10, false));
+        tariffs.add(tariffFactory.createTariff(VehicleType.DISABLED, parkingLot, 5, false));
+        // holiday tariffs
+        tariffs.add(tariffFactory.createTariff(VehicleType.CAR, parkingLot, 40, true));
+        tariffs.add(tariffFactory.createTariff(VehicleType.TRUCK, parkingLot, 60, true));
+        tariffs.add(tariffFactory.createTariff(VehicleType.BIKE, parkingLot, 20, true));
+        tariffs.add(tariffFactory.createTariff(VehicleType.DISABLED, parkingLot, 10, true));
+
+        return tariffRepository.save(tariffs);
     }
 }

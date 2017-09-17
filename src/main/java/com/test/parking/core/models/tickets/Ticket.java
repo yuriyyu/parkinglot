@@ -12,18 +12,9 @@ import java.time.LocalDateTime;
  *
  * @author Yuriy Yugay
  */
-@Entity
-@Table(name = "ticket")
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Ticket {
 
-    @Id
-    @GeneratedValue
     private int id;
-
-    @OneToOne
-    @JoinColumn(name = "registration_id")
-    private Registration registration;
 
     private LocalDateTime createDate;
 
@@ -31,4 +22,19 @@ public class Ticket {
 
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
+    }
 }

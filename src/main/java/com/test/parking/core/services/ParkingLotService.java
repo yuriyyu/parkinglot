@@ -21,15 +21,11 @@ import java.util.List;
 public class ParkingLotService {
 
     private ParkingLotRepository parkingLotRepository;
-    private TariffService tariffService;
-    private ParkingSlotService parkingSlotService;
+
 
     @Autowired
-    public ParkingLotService(ParkingLotRepository parkingLotRepository,
-            TariffService tariffService, ParkingSlotService parkingSlotService) {
+    public ParkingLotService(ParkingLotRepository parkingLotRepository) {
         this.parkingLotRepository = parkingLotRepository;
-        this.tariffService = tariffService;
-        this.parkingSlotService = parkingSlotService;
     }
 
     public List<ParkingLot> getParkingLots() {
@@ -40,20 +36,15 @@ public class ParkingLotService {
         return parkingLotRepository.findOne(id);
     }
 
-    public void addParkingLot(ParkingLot parkingLot) {
-        parkingLotRepository.save(parkingLot);
+    public ParkingLot addParkingLot(ParkingLot parkingLot) {
+        return parkingLotRepository.save(parkingLot);
     }
 
-    public ParkingLot createParkingLot(int id, String address,
-                                       //6, 12, 6, 6
-                                       int carSlotsNum, int truckSlotsNum, int bikeSlotsNum, int disabledSlotsNum) {
-        ParkingLot parkingLot = new GroundParkingLot(id, address);
-        parkingLot.setParkingSlots(parkingSlotService.createParkingSlots(id, carSlotsNum,
-                truckSlotsNum, bikeSlotsNum, disabledSlotsNum));
-        
-        parkingLot.setTariffs(tariffService.createTariffs(id));
-        
-        addParkingLot(parkingLot);
+    public ParkingLot createStubParking() {
+        ParkingLot parkingLot = new GroundParkingLot();
+        parkingLot.setAddress("Burlinghton ave. 4th street");
+
+        parkingLot = addParkingLot(parkingLot);
 
         return parkingLot;
     }

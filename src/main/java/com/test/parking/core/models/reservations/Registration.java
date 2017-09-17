@@ -26,9 +26,6 @@ public class Registration {
 
 //    private Tariff tariff;
 
-    @OneToOne(mappedBy = "registration",cascade = CascadeType.ALL)
-    private Ticket ticket;
-
     private int time;
 
     private LocalDateTime createDate;
@@ -65,14 +62,6 @@ public class Registration {
 
     public void setVehicleNumber(String vehicleNumber) {
         this.vehicleNumber = vehicleNumber;
-    }
-
-    public Ticket getTicket() {
-        return ticket;
-    }
-
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
     }
 
     public int getId() {
@@ -113,5 +102,19 @@ public class Registration {
 
     public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Registration{");
+        sb.append("id=").append(id);
+        sb.append(", parkingSlot=").append(parkingSlot);
+        sb.append(", time=").append(time);
+        sb.append(", createDate=").append(createDate);
+        sb.append(", fromDate=").append(fromDate);
+        sb.append(", toDate=").append(toDate);
+        sb.append(", vehicleNumber='").append(vehicleNumber).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

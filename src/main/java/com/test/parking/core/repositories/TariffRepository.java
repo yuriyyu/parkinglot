@@ -14,4 +14,6 @@ import java.util.List;
 public interface TariffRepository
         extends JpaRepository<Tariff, Integer> {
     List<Tariff> findByParkingLot(ParkingLot parkingLot);
+
+    List<Tariff> findByParkingLotAndHoliday(ParkingLot parkingLot, boolean isHoliday);
 }

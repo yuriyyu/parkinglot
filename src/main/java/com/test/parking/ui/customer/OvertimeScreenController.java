@@ -17,14 +17,20 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.stereotype.Component;
 
 /**
  * FXML Controller class
  *
  * @author 986026
  */
+@Component
 public class OvertimeScreenController 
         implements Initializable {
+    @Autowired
+    private ConfigurableApplicationContext springContext;
 
     @FXML
     private TextField vehicleNumberText;
@@ -55,7 +61,7 @@ public class OvertimeScreenController
     @FXML
     protected void handlePayLaterButtonAction(ActionEvent event) 
             throws Exception {
-        System.exit(100);
+        System.exit(0);
     }
     
     @FXML
@@ -63,10 +69,15 @@ public class OvertimeScreenController
             throws Exception {
         
         Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("payment_screen.fxml"));
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/payment_screen.fxml"));
+        fxmlLoader.setControllerFactory(springContext::getBean);
+        Parent root = fxmlLoader.load();
+        PaymentScreenController paymentScreenController = fxmlLoader.getController();
+        paymentScreenController.setOvertimePayment(true);
+
         Scene mainScene = new Scene(root, 600, 400);
-    	
+
         primaryStage.setTitle("Payment Info");
         primaryStage.setScene(mainScene);
         primaryStage.show();

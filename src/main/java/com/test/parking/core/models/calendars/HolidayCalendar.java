@@ -13,33 +13,27 @@ import java.util.Map;
  *
  * @author Yuriy Yugay
  */
-public class Calendar {
-
-    protected Map<Integer, List<Integer>> yearHolidays;
-
-    public Calendar() {
-        this.buildHolidaysMap(yearHolidays);
-    }
-
-    private void buildHolidaysMap(Map<Integer, List<Integer>> map) {
-        if(map == null) {
-            this.yearHolidays = new HashMap<>();
-        }
-
+public final class HolidayCalendar {
+    private static final Map<Integer, List<Integer>> yearHolidays = new HashMap<>();
+    static {
         List<Integer> julyDays = new ArrayList<>();
         julyDays.add(4); // Independence Day
-        map.put(7, julyDays);
+        yearHolidays.put(7, julyDays);
 
         List<Integer> decemberDays = new ArrayList<>();
         decemberDays.add(25); // christmas day
-        map.put(12, julyDays);
+        yearHolidays.put(12, julyDays);
     }
 
-    public boolean isHoliday(LocalDateTime dateTime) {
+    private HolidayCalendar() {
+
+    }
+
+    public static boolean isHoliday(LocalDateTime dateTime) {
         Month month = dateTime.getMonth();
         int monthValue = month.getValue();
         int monthDay = dateTime.getDayOfMonth();
-        List<Integer> daysList = this.yearHolidays.get(monthValue);
+        List<Integer> daysList = yearHolidays.get(monthValue);
         if(daysList != null) {
             return daysList.stream()
                     .filter(day -> day == monthDay)

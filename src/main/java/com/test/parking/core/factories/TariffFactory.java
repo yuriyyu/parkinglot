@@ -1,5 +1,6 @@
 package com.test.parking.core.factories;
 
+import com.test.parking.core.models.ParkingLot;
 import com.test.parking.core.models.VehicleType;
 import com.test.parking.core.models.tariffs.*;
 import org.springframework.stereotype.Component;
@@ -15,20 +16,21 @@ import org.springframework.stereotype.Component;
 public class TariffFactory {
 
 
-    public Tariff createTariff(VehicleType type) {
+    public Tariff createTariff(VehicleType type, ParkingLot parkingLot, double price, boolean isHoliday) {
         Tariff tariff = null;
+
         switch (type) {
             case CAR:
-                tariff = new CarTariff();
+                tariff = new CarTariff(parkingLot, price, isHoliday);
                 break;
             case TRUCK:
-                tariff = new TruckTariff();
+                tariff = new TruckTariff(parkingLot, price, isHoliday);
                 break;
             case BIKE:
-                tariff = new BikeTariff();
+                tariff = new BikeTariff(parkingLot, price, isHoliday);
                 break;
             case DISABLED:
-                tariff = new DisabledTariff();
+                tariff = new DisabledTariff(parkingLot, price, isHoliday);
                 break;
         }
         return tariff;

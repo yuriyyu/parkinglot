@@ -32,6 +32,8 @@ public class PaymentScreenController
     @Autowired
     private ConfigurableApplicationContext springContext;
 
+    private boolean isOvertimePayment;
+
     @FXML
     private Button cancelButton;
     
@@ -55,16 +57,25 @@ public class PaymentScreenController
     @FXML
     protected void handleSubmitButtonAction(ActionEvent event) 
             throws Exception {
-        
-        Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ticket_screen.fxml"));
-        fxmlLoader.setControllerFactory(springContext::getBean);
-        Parent root = fxmlLoader.load();
-        Scene mainScene = new Scene(root, 600, 400);
-    	
-        primaryStage.setTitle("Ticket Info");
-        primaryStage.setScene(mainScene);
-        primaryStage.show();
+        if(isOvertimePayment) {
+            System.exit(0);
+        } else {
+
+            Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ticket_screen.fxml"));
+            fxmlLoader.setControllerFactory(springContext::getBean);
+            Parent root = fxmlLoader.load();
+            Scene mainScene = new Scene(root, 600, 400);
+
+            primaryStage.setTitle("Ticket Info");
+            primaryStage.setScene(mainScene);
+            primaryStage.show();
+        }
+    }
+
+    public void setOvertimePayment(boolean overtimePayment) {
+        isOvertimePayment = overtimePayment;
     }
 }

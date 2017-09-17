@@ -5,21 +5,21 @@
  */
 package com.test.parking.ui.admin;
 
-import com.test.parking.core.factories.TariffFactory;
-import com.test.parking.core.models.GroundParkingLot;
 import com.test.parking.core.models.ParkingLot;
-import com.test.parking.core.models.VehicleType;
 import com.test.parking.core.models.tariffs.BikeTariff;
 import com.test.parking.core.models.tariffs.CarTariff;
 import com.test.parking.core.models.tariffs.DisabledTariff;
 import com.test.parking.core.models.tariffs.Tariff;
 import com.test.parking.core.models.tariffs.TruckTariff;
+import com.test.parking.core.services.ParkingLotService;
 import com.test.parking.core.services.TariffService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.test.parking.ui.MainScreenController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -57,15 +57,20 @@ public class ParkingLotAdminScreenController {
     @Autowired
     private ConfigurableApplicationContext springContext;
 
+    @Autowired
+    private ParkingLotService parkingLotService;
+    @Autowired
+    private TariffService tariffService;
+
     private int parkingLotId;
-    
+
+    public void setParkingLotId(int parkingLotId) {
+        this.parkingLotId = parkingLotId;
+    }
+
     @FXML protected void handleChangeTariffsButtonAction(ActionEvent event) throws Exception {
     	Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        String title = stage.getTitle();
-        String[] titleParts = title.split("\\s+");
-        parkingLotId = Integer.parseInt(titleParts[2]);
-        
-        
+
         Group root = new Group();
         Scene scene = new Scene(root, 400, 250, Color.WHITE);
 
@@ -75,7 +80,7 @@ public class ParkingLotAdminScreenController {
         BorderPane borderPane = new BorderPane();
         
         //TariffService tariffService = new TariffService(null, null, null);
-        ArrayList<Tariff> tariffs = (ArrayList) createTariffs();
+        ArrayList<Tariff> tariffs = (ArrayList) tariffService.getParkingLotTariffs(parkingLotId);
         //ArrayList<Tariff> tariffs = (ArrayList) tariffService.getParkingLotTariffs(parkingLotId);
         
         ArrayList<Tariff> normalTariffs = new ArrayList<>();
@@ -88,8 +93,8 @@ public class ParkingLotAdminScreenController {
             }
         }
         
-        Tab normalTab = createTab(normalTariffs, "Normal", stage, title);
-        Tab holidayTab = createTab(holidayTariffs, "Holiday", stage, title);
+        Tab normalTab = createTab(normalTariffs, "Normal", stage, ""+parkingLotId);
+        Tab holidayTab = createTab(holidayTariffs, "Holiday", stage, ""+parkingLotId);
         
         tabPane.getTabs().add(normalTab);
         tabPane.getTabs().add(holidayTab);
@@ -108,11 +113,8 @@ public class ParkingLotAdminScreenController {
     
     @FXML
     protected void handleBackButtonAction(ActionEvent event) throws Exception {
-        ArrayList<GroundParkingLot> parkingLots = new ArrayList<GroundParkingLot>();
-    	parkingLots.add(new GroundParkingLot(0, "Washington, First st."));
-    	parkingLots.add(new GroundParkingLot(1, "Washington, Second st."));
-    	parkingLots.add(new GroundParkingLot(2, "Washington, Third st."));
-        
+        List<ParkingLot> parkingLots = parkingLotService.getParkingLots();
+
     	Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 
     	stage.setTitle("Parking Lots");
@@ -251,41 +253,7 @@ public class ParkingLotAdminScreenController {
         
         return tab;
     }
-    
-    private List<Tariff> createTariffs() {
-        ArrayList<Tariff> tariffs = new ArrayList<>();
-        TariffFactory factory = new TariffFactory();
-        
-        CarTariff carTariffNormal = (CarTariff) factory.createTariff(VehicleType.CAR);
-        setTariffProperties(carTariffNormal, 5.0, false, null);
-        TruckTariff truckTariffNormal = (TruckTariff) factory.createTariff(VehicleType.TRUCK);
-        setTariffProperties(truckTariffNormal, 10.0, false, null);
-        BikeTariff bikeTariffNormal = (BikeTariff) factory.createTariff(VehicleType.BIKE);
-        setTariffProperties(bikeTariffNormal, 2.0, false, null);
-        DisabledTariff disabledTariffNormal = (DisabledTariff) factory.createTariff(VehicleType.DISABLED);
-        setTariffProperties(disabledTariffNormal, 3.0, false, null);
-        
-        CarTariff carTariffHoliday = (CarTariff) factory.createTariff(VehicleType.CAR);
-        setTariffProperties(carTariffHoliday, 8.0, true, null);
-        TruckTariff truckTariffHoliday = (TruckTariff) factory.createTariff(VehicleType.TRUCK);
-        setTariffProperties(truckTariffHoliday, 15.0, true, null);
-        BikeTariff bikeTariffHoliday = (BikeTariff) factory.createTariff(VehicleType.BIKE);
-        setTariffProperties(bikeTariffHoliday, 4.0, true, null);
-        DisabledTariff disabledTariffHoliday = (DisabledTariff) factory.createTariff(VehicleType.DISABLED);
-        setTariffProperties(disabledTariffHoliday, 4.0, true, null);
-        
-        tariffs.add(carTariffNormal);
-        tariffs.add(truckTariffNormal);
-        tariffs.add(bikeTariffNormal);
-        tariffs.add(disabledTariffNormal);
-        tariffs.add(carTariffHoliday);
-        tariffs.add(truckTariffHoliday);
-        tariffs.add(bikeTariffHoliday);
-        tariffs.add(disabledTariffHoliday);
-        
-        return tariffs;
-    }
-    
+
     private void setTariffProperties(Tariff tariff, Double price, boolean isHoliday, ParkingLot parkingLot) {
         tariff.setPrice(price);
         tariff.setHoliday(isHoliday);

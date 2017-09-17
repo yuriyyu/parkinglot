@@ -5,11 +5,14 @@
  */
 package com.test.parking.ui.admin;
 
-import com.test.parking.core.models.GroundParkingLot;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.test.parking.core.models.ParkingLot;
+import com.test.parking.core.services.ParkingLotService;
+import com.test.parking.ui.MainScreenController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,13 +42,12 @@ public class LoginScreenController {
 
     @Autowired
     private ConfigurableApplicationContext springContext;
+    @Autowired
+    private ParkingLotService parkingLotService;
 
     @FXML protected void handleLoginButtonAction(ActionEvent event) throws Exception {
-        ArrayList<GroundParkingLot> parkingLots = new ArrayList<GroundParkingLot>();
-    	parkingLots.add(new GroundParkingLot(0, "Washington, First st."));
-    	parkingLots.add(new GroundParkingLot(1, "Washington, Second st."));
-    	parkingLots.add(new GroundParkingLot(2, "Washington, Third st."));
-        
+        List<ParkingLot> parkingLots = parkingLotService.getParkingLots();
+
     	Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 
     	stage.setTitle("Parking Lots");

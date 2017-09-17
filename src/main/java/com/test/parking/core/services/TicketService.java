@@ -1,5 +1,7 @@
 package com.test.parking.core.services;
 
+import com.test.parking.core.models.reservations.Registration;
+import com.test.parking.core.models.tickets.NormalTicket;
 import com.test.parking.core.models.tickets.Ticket;
 import com.test.parking.core.repositories.RegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,10 @@ public class TicketService {
         this.registrationRepository = registrationRepository;
     }
 
-    public Ticket createTicket() {
-        return new Ticket();
+    public NormalTicket createNormalTicket(Registration registration) {
+        System.out.println(registration);
+        NormalTicket ticket = new NormalTicket();
+
+        return ticket;
     }
 }

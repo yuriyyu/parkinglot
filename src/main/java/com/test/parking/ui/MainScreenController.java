@@ -30,15 +30,20 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.test.parking.ui.admin;
+package com.test.parking.ui;
 
 import com.test.parking.core.models.ParkingLot;
 import com.test.parking.core.models.spaces.ParkingSlot;
 import com.test.parking.core.services.ParkingLotService;
 import com.test.parking.core.services.ParkingSlotService;
+import com.test.parking.core.services.RegistrationService;
+import com.test.parking.core.services.TariffService;
+import com.test.parking.ui.admin.ParkingLotAdminScreenController;
+import com.test.parking.ui.customer.ReservationScreenController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -47,10 +52,43 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
+
 @Component
-public class MainScreenController {
+public class MainScreenController
+        implements Initializable {
     @Autowired
     private ConfigurableApplicationContext springContext;
+
+    @Autowired
+    private ParkingLotService parkingLotService;
+    @Autowired
+    private RegistrationService registrationService;
+    @Autowired
+    private TariffService tariffService;
+    @Autowired
+    private ParkingSlotService parkingSlotService;
+
+    @Autowired
+    private ReservationScreenController reservationScreenController;
+    @Autowired
+    private ParkingLotAdminScreenController parkingLotAdminScreenController;
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // create stub parking lot
+        ParkingLot parkingLot = parkingLotService.createStubParking();
+        // create stub parking slots
+        List<ParkingSlot> parkingSlots = parkingSlotService.createStubSlots(parkingLot);
+        // create stub tariffs
+        tariffService.createStubTariffs(parkingLot);
+        // create stub registration
+        registrationService.createStubRegistrations(parkingSlots);
+
+        reservationScreenController.setParkingLotId(parkingLot.getId());
+        parkingLotAdminScreenController.setParkingLotId(parkingLot.getId());
+    }
 
     @FXML
     protected void handleReserveSpotButtonAction(ActionEvent event) throws Exception {
@@ -80,4 +118,17 @@ public class MainScreenController {
         
     }
 
+    @FXML protected void handleOvertimeButtonAction(ActionEvent event) throws Exception {
+        Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/overtime_screen.fxml"));
+        fxmlLoader.setControllerFactory(springContext::getBean);
+        Parent root = fxmlLoader.load();
+
+        Scene mainScene = new Scene(root, 600, 400);
+
+        primaryStage.setTitle("Overtime payment");
+        primaryStage.setScene(mainScene);
+        primaryStage.show();
+    }
 }

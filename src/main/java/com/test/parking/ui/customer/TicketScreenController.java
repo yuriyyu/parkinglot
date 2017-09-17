@@ -8,20 +8,16 @@ package com.test.parking.ui.customer;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.test.parking.core.models.reservations.Registration;
+import com.test.parking.core.models.tickets.NormalTicket;
 import com.test.parking.core.services.TicketService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
 /**
@@ -32,6 +28,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class TicketScreenController 
         implements Initializable {
+
+    private NormalTicket ticket;
 
     @Autowired
     private TicketService ticketService;
@@ -57,15 +55,18 @@ public class TicketScreenController
     private TextField timeText;
     @FXML
     private TextField totalCostText;
-    
+
+    public void setRegistration(Registration registration) {
+        ticket = ticketService.createNormalTicket(registration);
+    }
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ticketService.createTicket();
         // TODO
-    }    
+    }
     
     @FXML
     protected void handleYesButtonAction(ActionEvent event) 

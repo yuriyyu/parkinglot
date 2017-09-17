@@ -1,5 +1,7 @@
 package com.test.parking.core.models.tariffs;
 
+import com.test.parking.core.models.ParkingLot;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -13,7 +15,9 @@ import javax.persistence.Entity;
 public class TruckTariff
         extends Tariff {
 
-    public TruckTariff() {
-        super();
+    public TruckTariff() {}
+
+    public TruckTariff(ParkingLot parkingLot, double price, boolean isHoliday) {
+        super(parkingLot, price, isHoliday);
     }
 }

@@ -12,16 +12,8 @@ import javax.persistence.*;
 public class GroundParkingLot
         extends ParkingLot {
 
-    private String address;
 
     public GroundParkingLot() {
-        super();
-    }
-
-    public GroundParkingLot(int id, String address) {
-        super(id);
-        this.address = address;
-
     }
 
 //
@@ -82,9 +74,6 @@ public class GroundParkingLot
 //        return -1;
 //    }
 //
-	public String getAddress() {
-		return address;
-	}
     
     
 }

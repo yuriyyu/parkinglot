@@ -1,7 +1,7 @@
 package com.test.parking.core.models.tariffs;
 
 import com.test.parking.core.models.ParkingLot;
-import com.test.parking.core.models.vehicles.Vehicle;
+import com.test.parking.core.models.VehicleType;
 
 import javax.persistence.*;
 
@@ -20,7 +20,10 @@ public abstract class Tariff {
     @GeneratedValue
     protected int id;
 
-    protected boolean isHoliday;
+    protected boolean holiday;
+
+    @Column(name = "VEHICLE_TYPE", updatable = false, insertable = false)
+    protected String type;
 
     @OneToOne
     @JoinColumn(name = "parking_lot_id")
@@ -30,6 +33,16 @@ public abstract class Tariff {
 
     public Tariff(){
 
+    }
+
+    public Tariff(ParkingLot parkingLot, double price, boolean holiday) {
+        this.parkingLot = parkingLot;
+        this.price = price;
+        this.holiday = holiday;
+    }
+
+    public VehicleType getType() {
+        return VehicleType.fromValue(type);
     }
 
     public int getId() {
@@ -49,11 +62,11 @@ public abstract class Tariff {
     }
 
     public boolean isHoliday() {
-        return isHoliday;
+        return holiday;
     }
 
     public void setHoliday(boolean holiday) {
-        isHoliday = holiday;
+        this.holiday = holiday;
     }
 
     public ParkingLot getParkingLot() {

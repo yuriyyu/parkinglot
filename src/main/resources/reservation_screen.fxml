@@ -207,9 +207,11 @@
       </GridPane>
       <Pane layoutY="-2.0" prefHeight="48.0" prefWidth="600.0">
          <children>
-            <DatePicker fx:id="datePicker" layoutX="412.0" layoutY="12.0" showWeekNumbers="true" />
+            <DatePicker fx:id="datePicker" layoutX="412.0" layoutY="12.0" showWeekNumbers="true" visible="false" />
             <Label fx:id="dateLabel" layoutX="267.0" layoutY="16.0" text="Today" />
-            <Label layoutX="382.0" layoutY="16.0" text="Pick" />
+            <Label layoutX="382.0" layoutY="16.0" text="Pick" visible="false" />
+            <Label layoutX="20.0" layoutY="16.0" text="Parking Lot ID:" />
+            <Label fx:id="labelParkingLotId" layoutX="110.0" layoutY="16.0" />
          </children>
       </Pane>
    </children>

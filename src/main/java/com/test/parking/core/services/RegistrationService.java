@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Yuriy Yugay on 9/13/2017.
@@ -28,7 +31,7 @@ public class RegistrationService {
         this.registrationRepository = registrationRepository;
     }
 
-    public void createRegistration (String vehicleNumber, int parkingSlotId, int time) {
+    public Registration createRegistration (String vehicleNumber, int parkingSlotId, int time) {
         ParkingSlot parkingSlot = parkingSlotRepository.findOne(parkingSlotId);
 
         Registration registration = new Registration();
@@ -44,6 +47,41 @@ public class RegistrationService {
         registration.setFromDate(currentDateTime);
         registration.setToDate(dueDateTime);
 
-        registrationRepository.save(registration);
+        return registrationRepository.save(registration);
+    }
+
+    public void createStubRegistrations(List<ParkingSlot> parkingSlots) {
+        List<String> occupied = new ArrayList<>();
+        occupied.add("A3");
+        occupied.add("A5");
+        occupied.add("B1");
+        occupied.add("B4");
+        occupied.add("C2");
+        occupied.add("C5");
+        occupied.add("D1");
+        occupied.add("D2");
+        occupied.add("E4");
+        occupied.add("E5");
+
+        Random random = new Random();
+
+        int [] timeArray = {30, 60, 90, 120};
+        String randomSym = "qwertyuiopasdfghjklzxcvbnm1234567890";
+
+        for(String str : occupied) {
+            char [] chArray = str.toCharArray();
+            for(ParkingSlot slot : parkingSlots) {
+                if(String.valueOf(chArray[0]).equals(slot.getColumn())
+                        && Character.getNumericValue(chArray[1]) == slot.getRow()) {
+                    StringBuilder s = new StringBuilder();
+                    for(int x = 0; x < 5; x++) {
+                        int chIndex = random.nextInt(randomSym.length());
+                        s.append(randomSym.charAt(chIndex));
+                    }
+                    createRegistration(s.toString(), slot.getId(), timeArray[random.nextInt(4)]);
+                }
+            }
+
+        }
     }
 }

@@ -7,16 +7,11 @@ import javax.persistence.*;
  *
  * @author Yuriy Yugay
  */
-@Entity
-@Table(name = "fine_ticket")
-@Inheritance(strategy = InheritanceType.JOINED)
 public class FineTicket
         extends Ticket {
 
-    @Column(name="fine_cost")
     private double fineCost;
     // in minutes
-    @Column(name = "exceeded_time")
     private int exceededTime;
 
     public FineTicket() {

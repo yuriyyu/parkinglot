@@ -5,6 +5,7 @@
  */
 package com.test.parking.core.factories;
 
+import com.test.parking.core.models.ParkingLot;
 import com.test.parking.core.models.VehicleType;
 import com.test.parking.core.models.spaces.CarParkingSlot;
 import com.test.parking.core.models.spaces.DisabledParkingSlot;
@@ -21,20 +22,20 @@ import org.springframework.stereotype.Component;
 public class ParkingSlotFactory {
 
 
-    public ParkingSlot createParkingSlot(VehicleType type, String column, int row) {
+    public ParkingSlot createParkingSlot(ParkingLot parkingLot, VehicleType type, String column, int row) {
         ParkingSlot slot = null;
         switch (type) {
             case CAR:
-                slot = new CarParkingSlot(column, row);
+                slot = new CarParkingSlot(parkingLot, column, row);
                 break;
             case TRUCK:
-                slot = new TruckParkingSlot(column, row);
+                slot = new TruckParkingSlot(parkingLot, column, row);
                 break;
             case BIKE:
-                slot = new MotorbikeParkingSlot(column, row);
+                slot = new MotorbikeParkingSlot(parkingLot, column, row);
                 break;
             case DISABLED:
-                slot = new DisabledParkingSlot(column, row);
+                slot = new DisabledParkingSlot(parkingLot, column, row);
                 break;
         }
         return slot;

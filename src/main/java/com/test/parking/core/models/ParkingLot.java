@@ -2,6 +2,8 @@ package com.test.parking.core.models;
 
 import com.test.parking.core.models.spaces.ParkingSlot;
 import com.test.parking.core.models.tariffs.Tariff;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -20,28 +22,28 @@ public abstract class ParkingLot {
     @GeneratedValue
     private int id;
 
-    @OneToMany(mappedBy = "parkingLot",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ParkingSlot> parkingSlots;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "parkingLot", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ParkingSlot> parkingSlots = new ArrayList<>();
 
     private int size;
 
-    @OneToMany(mappedBy = "parkingLot",cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Tariff> tariffs;
+    private String address;
+
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "parkingLot", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Tariff> tariffs = new ArrayList<>();
 
     public ParkingLot() {
 
     }
 
-    public ParkingLot(int id) {
-        this.id = id;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
     public List<ParkingSlot> getParkingSlots() {
         return parkingSlots;
+    }
+
+    public List<Tariff> getTariffs() {
+        return tariffs;
     }
 
     public void setParkingSlots(List<ParkingSlot> parkingSlots) {
@@ -55,7 +57,11 @@ public abstract class ParkingLot {
     }
     
     public void setTariffs(List<Tariff> tariffs) {
-        this.tariffs = tariffs;
+        this.tariffs.clear();
+
+        if(tariffs != null) {
+            this.tariffs.addAll(tariffs);
+        }
     }
 
     public int getSize() {
@@ -70,6 +76,14 @@ public abstract class ParkingLot {
         this.id = id;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("ParkingLot{");
@@ -78,5 +92,4 @@ public abstract class ParkingLot {
         sb.append('}');
         return sb.toString();
     }
-    
 }

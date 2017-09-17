@@ -19047,7 +19047,7 @@
 											},
 											"edgePosition": 1,
 											"underline": false,
-											"text": "8 : isHoliday(date)",
+											"text": "8 : holiday(date)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -21816,7 +21816,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFeckGA4h33kJ0="
 							},
-							"name": "isHoliday",
+							"name": "holiday",
 							"source": {
 								"$ref": "AAAAAAFecleNCCSQiog="
 							},

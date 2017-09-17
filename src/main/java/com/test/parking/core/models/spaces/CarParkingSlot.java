@@ -1,5 +1,7 @@
 package com.test.parking.core.models.spaces;
 
+import com.test.parking.core.models.ParkingLot;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -15,7 +17,7 @@ public class CarParkingSlot
         super();
     }
 
-    public CarParkingSlot(String column, int row) {
-        super(column, row);
+    public CarParkingSlot(ParkingLot parkingLot, String column, int row) {
+        super(parkingLot, column, row);
     }
 }

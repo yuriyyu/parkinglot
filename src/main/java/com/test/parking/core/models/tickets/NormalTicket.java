@@ -7,16 +7,11 @@ import javax.persistence.*;
  *
  * @author Yuriy Yugay
  */
-@Entity
-@Table(name = "normal_ticket")
-@Inheritance(strategy = InheritanceType.JOINED)
 public class NormalTicket
         extends Ticket {
 
-    @Column(name = "occupied_time")
     private int occupiedTime;
 
-    @Column(name = "total_cost")
     private double totalCost;
 
     private byte[] qrCode;
