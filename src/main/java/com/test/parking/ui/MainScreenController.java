@@ -35,10 +35,8 @@ package com.test.parking.ui;
 import com.test.parking.core.models.ParkingLot;
 import com.test.parking.core.models.spaces.ParkingSlot;
 import com.test.parking.core.models.tariffs.Tariff;
-import com.test.parking.core.services.ParkingLotService;
-import com.test.parking.core.services.ParkingSlotService;
-import com.test.parking.core.services.RegistrationService;
-import com.test.parking.core.services.TariffService;
+import com.test.parking.core.models.users.Manager;
+import com.test.parking.core.services.*;
 import com.test.parking.ui.admin.ParkingLotAdminScreenController;
 import com.test.parking.ui.customer.ReservationScreenController;
 import javafx.event.ActionEvent;
@@ -64,6 +62,8 @@ public class MainScreenController
     private ConfigurableApplicationContext springContext;
 
     @Autowired
+    private UserService userService;
+    @Autowired
     private ParkingLotService parkingLotService;
     @Autowired
     private RegistrationService registrationService;
@@ -81,6 +81,8 @@ public class MainScreenController
         List<ParkingLot> parkingLots = parkingLotService.getParkingLots();
         int parkingLotId = 0;
         if(parkingLots == null || parkingLots.isEmpty()) {
+            // create stub manager
+            Manager manager = (Manager) userService.createStubUser();
             // create stub parking lot
             ParkingLot parkingLot = parkingLotService.createStubParking();
             parkingLotId = parkingLot.getId();

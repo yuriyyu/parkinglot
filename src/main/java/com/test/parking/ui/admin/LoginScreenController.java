@@ -11,8 +11,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.test.parking.core.models.ParkingLot;
+import com.test.parking.core.models.users.User;
 import com.test.parking.core.services.ParkingLotService;
-import com.test.parking.ui.MainScreenController;
+import com.test.parking.core.services.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -40,12 +42,43 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoginScreenController {
 
+    @FXML
+    private TextField loginField;
+
+    @FXML
+    private TextField passwordField;
+
+    @FXML
+    private Text errorMessage;
+
+    @Autowired
+    private UserService userService;
+
     @Autowired
     private ConfigurableApplicationContext springContext;
     @Autowired
     private ParkingLotService parkingLotService;
 
     @FXML protected void handleLoginButtonAction(ActionEvent event) throws Exception {
+        String login = loginField.getText();
+        String password = passwordField.getText();
+
+        if(login.equals("") || password.equals("")) {
+            errorMessage.setText("Both fields must be filled!");
+            return;
+        }
+
+        User user = userService.getUserByLoginName(login);
+
+        if(user == null) {
+            errorMessage.setText("There is no user with such user name!");
+            return;
+        }
+
+        if(!user.getPassword().equals(password)) {
+            errorMessage.setText("Wrong password!");
+            return;
+        }
         List<ParkingLot> parkingLots = parkingLotService.getParkingLots();
 
     	Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -90,7 +123,7 @@ public class LoginScreenController {
                     stage.setTitle("Parking Lot " + id);
                     stage.setScene(new Scene(loginFrame, 600, 400));
                 } catch (IOException ex) {
-                    Logger.getLogger(MainScreenController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(LoginScreenController.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             });
@@ -108,6 +141,18 @@ public class LoginScreenController {
     	stage.setTitle("Parking Lots");
         stage.setScene(scene);
         
+    }
+	
+    public TextField getLoginField() {
+        return loginField;
+    }
+
+    public TextField getPasswordField() {
+        return passwordField;
+    }
+
+    public Text getErrorMessage() {
+        return errorMessage;
     }
     
 }
