@@ -160,12 +160,14 @@ public class ReservationScreenController
                             Tariff tar = currentTariffMap.get(type);
                             String [] values = timePicker.getSelectionModel().getSelectedItem().split(" ");
 
-                            priceText.setText((Double.valueOf(values[0]) / 60f * tar.getPrice()) + " $");
+                            double fee = (Double.valueOf(values[0]) / 60f * tar.getPrice());
+                            priceText.setText(fee + " $");
                             typeText.setText(type.toValue());
                             vehicleNumberText.setText(sSlot.getOccupiedVehicleNumber());
 
                             if(!sSlot.isOccupied()) {
                                 freeParkingSlot = sSlot;
+                                slotFeeAmount = fee;
                                 bottomPane.setVisible(true);
                                 priceText.setEditable(true);
                                 vehicleNumberText.setEditable(true);

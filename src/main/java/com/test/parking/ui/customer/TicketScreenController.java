@@ -6,11 +6,13 @@
 package com.test.parking.ui.customer;
 
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import com.test.parking.core.models.reservations.Registration;
 import com.test.parking.core.models.tickets.NormalTicket;
 import com.test.parking.core.services.TicketService;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -66,6 +68,15 @@ public class TicketScreenController
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        vehicleNumberText.setText(ticket.getVehicleNumber());
+        slotNumberText.setText(ticket.getSlotNumber());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM yyyy hh:mm");
+
+        fromDateText.setText(ticket.getFromDate().format(formatter));
+        toDateText.setText(ticket.getToDate().format(formatter));
+        timeText.setText(ticket.getOccupiedTime() + " minutes");
+        totalCostText.setText(ticket.getTotalCost() + " $");
+        imageQRCode.setImage(SwingFXUtils.toFXImage(ticket.getQrCodeImage(), null));
     }
     
     @FXML

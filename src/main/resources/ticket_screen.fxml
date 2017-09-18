@@ -17,7 +17,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <ImageView fx:id="imageQRCode" fitHeight="150.0" fitWidth="200.0" layoutX="346.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imageQRCode" fitHeight="200.0" fitWidth="200.0" layoutX="346.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" />
             <Label layoutX="37.0" layoutY="102.0" text="Vehicle Number" />
             <TextField fx:id="vehicleNumberText" disable="true" editable="false" layoutX="134.0" layoutY="98.0" />
             <TextField fx:id="slotNumberText" disable="true" editable="false" layoutX="134.0" layoutY="137.0" />
