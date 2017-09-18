@@ -54,6 +54,10 @@ public class TariffService {
         return tariffRepository.findByParkingLot(parkingLot);
     }
 
+    public Tariff saveTariff(Tariff tariff) {
+        return tariffRepository.save(tariff);
+    }
+
     public List<Tariff> createStubTariffs(ParkingLot parkingLot) {
         ArrayList<Tariff> tariffs = new ArrayList<>();
         // normal tariffs

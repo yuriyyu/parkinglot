@@ -1,5 +1,6 @@
 package com.test.parking.core.services;
 
+import com.test.parking.core.models.ParkingLot;
 import com.test.parking.core.models.reservations.Registration;
 import com.test.parking.core.models.spaces.ParkingSlot;
 import com.test.parking.core.models.tariffs.Tariff;
@@ -93,5 +94,13 @@ public class RegistrationService {
             }
 
         }
+    }
+
+    public List<Registration> getRegistrations() {
+        return registrationRepository.findAll();
+    }
+
+    public Registration getRegistrationBySlotId(int slotId) {
+        return registrationRepository.findByParkingSlotId(slotId);
     }
 }
