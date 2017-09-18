@@ -1,6 +1,7 @@
 package com.test.parking.core.services;
 
 import com.test.parking.core.models.reservations.Registration;
+import com.test.parking.core.models.tickets.FineTicket;
 import com.test.parking.core.models.tickets.NormalTicket;
 import com.test.parking.core.models.tickets.Ticket;
 import com.test.parking.core.repositories.RegistrationRepository;
@@ -25,6 +26,7 @@ public class TicketService {
 
     public NormalTicket createNormalTicket(Registration registration) {
         NormalTicket ticket = new NormalTicket();
+        ticket.setRegistrationId(registration.getId());
         ticket.setFromDate(registration.getFromDate());
         ticket.setToDate(registration.getToDate());
         ticket.setVehicleNumber(registration.getVehicleNumber());
@@ -36,5 +38,21 @@ public class TicketService {
         ticket.setQrCodeImage(QRCodeGenerator.qrCodeFileGenerator(ticket.toString()));
 
         return ticket;
+    }
+
+    public FineTicket createOvertimeTicket(Registration overtimeRegistration) {
+        int exceededTime = 30;
+        FineTicket fineTicket = new FineTicket();
+        fineTicket.setExceededTime(exceededTime);
+        fineTicket.setRegistrationId(overtimeRegistration.getId());
+        fineTicket.setSlotNumber(overtimeRegistration.getParkingSlot().getSlotName());
+        fineTicket.setVehicleNumber(overtimeRegistration.getVehicleNumber());
+
+        int time = overtimeRegistration.getTime();
+        double doublePricePerHour = overtimeRegistration.getFeeAmount() / ((double)time / 60f) * 2;
+        double fineAmount = (double)exceededTime / 60f * doublePricePerHour;
+        fineTicket.setFineCost(fineAmount);
+
+        return fineTicket;
     }
 }

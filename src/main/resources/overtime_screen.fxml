@@ -16,16 +16,18 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label layoutX="46.0" layoutY="110.0" text="Vehicle Number" />
-            <TextField fx:id="vehicleNumberText" disable="true" editable="false" layoutX="151.0" layoutY="106.0" />
-            <Label layoutX="46.0" layoutY="162.0" text="Slot Number" />
-            <Label layoutX="46.0" layoutY="209.0" text="Exceeded time" />
-            <TextField fx:id="exceededTimeText" disable="true" editable="false" layoutX="151.0" layoutY="205.0" />
-            <TextField fx:id="slotNumberText" disable="true" editable="false" layoutX="151.0" layoutY="158.0" />
-            <TextField fx:id="fineText" disable="true" editable="false" layoutX="151.0" layoutY="260.0" />
-            <Label layoutX="46.0" layoutY="264.0" text="Fine" />
+            <Label layoutX="44.0" layoutY="156.0" text="Vehicle Number" />
+            <TextField fx:id="vehicleNumberText" disable="true" editable="false" layoutX="151.0" layoutY="152.0" />
+            <Label layoutX="45.0" layoutY="204.0" text="Slot Number" />
+            <Label layoutX="46.0" layoutY="264.0" text="Exceeded time" />
+            <TextField fx:id="exceededTimeText" disable="true" editable="false" layoutX="151.0" layoutY="260.0" />
+            <TextField fx:id="slotNumberText" disable="true" editable="false" layoutX="151.0" layoutY="200.0" />
+            <TextField fx:id="fineText" disable="true" editable="false" layoutX="399.0" layoutY="260.0" />
+            <Label layoutX="348.0" layoutY="264.0" text="Fine" />
             <Button fx:id="payLaterText" layoutX="42.0" layoutY="332.0" mnemonicParsing="false" onAction="#handlePayLaterButtonAction" text="Pay Later" />
             <Button fx:id="payNowText" layoutX="237.0" layoutY="332.0" mnemonicParsing="false" onAction="#handlePayNowButtonAction" text="Pay Now" />
+            <TextField fx:id="registrationIdText" disable="true" editable="false" layoutX="151.0" layoutY="95.0" />
+            <Label layoutX="44.0" layoutY="99.0" text="Registration ID" />
          </children>
       </Pane>
    </children>

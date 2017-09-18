@@ -12,14 +12,21 @@ import java.util.ResourceBundle;
 import com.test.parking.core.models.reservations.Registration;
 import com.test.parking.core.models.tickets.NormalTicket;
 import com.test.parking.core.services.TicketService;
+import com.test.parking.ui.MainScreenController;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
 /**
@@ -30,6 +37,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class TicketScreenController 
         implements Initializable {
+    @Autowired
+    private ConfigurableApplicationContext springContext;
+
+    @Autowired
+    private MainScreenController mainScreenController;
 
     private NormalTicket ticket;
 
@@ -44,7 +56,9 @@ public class TicketScreenController
     
     @FXML
     private Button yesButton;
-    
+
+    @FXML
+    private TextField registrationIdText;
     @FXML
     private TextField vehicleNumberText;
     @FXML
@@ -60,6 +74,7 @@ public class TicketScreenController
 
     public void setRegistration(Registration registration) {
         ticket = ticketService.createNormalTicket(registration);
+        mainScreenController.setOvertimeRegistration(registration);
     }
 
     /**
@@ -68,6 +83,7 @@ public class TicketScreenController
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        registrationIdText.setText(String.valueOf(ticket.getRegistrationId()));
         vehicleNumberText.setText(ticket.getVehicleNumber());
         slotNumberText.setText(ticket.getSlotNumber());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM yyyy hh:mm");
@@ -82,13 +98,29 @@ public class TicketScreenController
     @FXML
     protected void handleYesButtonAction(ActionEvent event) 
             throws Exception {
-        System.exit(0);
+        returnToMainScreen(event);
+
     }
-    
+
     @FXML
-    protected void handleNoButtonAction(ActionEvent event) 
+    protected void handleNoButtonAction(ActionEvent event)
             throws Exception {
-        
-        System.exit(0);
+        returnToMainScreen(event);
+
     }
+
+    private void returnToMainScreen(ActionEvent event)
+            throws Exception {
+        Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main_screen.fxml"));
+        fxmlLoader.setControllerFactory(springContext::getBean);
+        Parent root = fxmlLoader.load();
+        Scene mainScene = new Scene(root, 600, 400);
+
+        primaryStage.setTitle("Payment Info");
+        primaryStage.setScene(mainScene);
+        primaryStage.show();
+    }
+
 }

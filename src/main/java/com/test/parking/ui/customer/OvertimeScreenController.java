@@ -7,6 +7,10 @@ package com.test.parking.ui.customer;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.test.parking.core.models.reservations.Registration;
+import com.test.parking.core.models.tickets.FineTicket;
+import com.test.parking.core.services.TicketService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,29 +37,39 @@ public class OvertimeScreenController
     private ConfigurableApplicationContext springContext;
 
     @FXML
+    private TextField registrationIdText;
+    @FXML
     private TextField vehicleNumberText;
-    
     @FXML
     private TextField slotNumberText;
-    
     @FXML
     private TextField exceededTimeText;
-    
     @FXML
     private TextField fineText;
-    
     @FXML
     private Button payLaterButton;
-    
     @FXML
     private Button payNowButton;
-    
+
+    private FineTicket fineTicket;
+
+    @Autowired
+    private TicketService ticketService;
+
+    public void setOvertimeRegistration(Registration overtimeRegistration) {
+        fineTicket = ticketService.createOvertimeTicket(overtimeRegistration);
+    }
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        registrationIdText.setText(String.valueOf(fineTicket.getRegistrationId()));
+        slotNumberText.setText(fineTicket.getSlotNumber());
+        vehicleNumberText.setText(fineTicket.getVehicleNumber());
+        exceededTimeText.setText(String.valueOf(fineTicket.getExceededTime()));
+        fineText.setText(String.valueOf(fineTicket.getFineCost()));
     }    
     
     @FXML

@@ -18,10 +18,6 @@ public class NormalTicket
 
     private LocalDateTime toDate;
 
-    private String vehicleNumber;
-
-    private String slotNumber;
-
     private int occupiedTime;
 
     private double totalCost;
@@ -46,22 +42,6 @@ public class NormalTicket
 
     public void setToDate(LocalDateTime toDate) {
         this.toDate = toDate;
-    }
-
-    public String getVehicleNumber() {
-        return vehicleNumber;
-    }
-
-    public void setVehicleNumber(String vehicleNumber) {
-        this.vehicleNumber = vehicleNumber;
-    }
-
-    public String getSlotNumber() {
-        return slotNumber;
-    }
-
-    public void setSlotNumber(String slotNumber) {
-        this.slotNumber = slotNumber;
     }
 
     public BufferedImage getQrCodeImage() {
@@ -92,6 +72,7 @@ public class NormalTicket
     public String toString() {
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM yyyy hh:mm");
         final StringBuilder sb = new StringBuilder("Ticket: \n");
+        sb.append("Registration Id: ").append(registrationId).append("\n");
         sb.append("Vehicle Number: ").append(vehicleNumber).append("\n");
         sb.append("Slot Number: ").append(slotNumber).append("\n");
         sb.append("From Date: ").append(fromDate.format(formatter)).append("\n");

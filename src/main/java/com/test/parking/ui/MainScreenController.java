@@ -33,11 +33,13 @@
 package com.test.parking.ui;
 
 import com.test.parking.core.models.ParkingLot;
+import com.test.parking.core.models.reservations.Registration;
 import com.test.parking.core.models.spaces.ParkingSlot;
 import com.test.parking.core.models.tariffs.Tariff;
 import com.test.parking.core.models.users.Manager;
 import com.test.parking.core.services.*;
 import com.test.parking.ui.admin.ParkingLotAdminScreenController;
+import com.test.parking.ui.customer.OvertimeScreenController;
 import com.test.parking.ui.customer.ReservationScreenController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,6 +48,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -76,8 +79,26 @@ public class MainScreenController
     private ReservationScreenController reservationScreenController;
     @Autowired
     private ParkingLotAdminScreenController parkingLotAdminScreenController;
+    @Autowired
+    private OvertimeScreenController overtimeScreenController;
+
+    @FXML
+    private Button overtimeButton;
+    private Registration overtimeRegistration;
+
+    public void setOvertimeRegistration(Registration overtimeRegistration) {
+        this.overtimeRegistration = overtimeRegistration;
+        overtimeScreenController.setOvertimeRegistration(overtimeRegistration);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if(overtimeRegistration == null) {
+            overtimeButton.setVisible(false);
+        } else {
+            overtimeButton.setVisible(true);
+        }
+
         List<ParkingLot> parkingLots = parkingLotService.getParkingLots();
         int parkingLotId = 0;
         if(parkingLots == null || parkingLots.isEmpty()) {
