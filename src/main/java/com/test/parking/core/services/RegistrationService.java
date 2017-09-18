@@ -2,6 +2,7 @@ package com.test.parking.core.services;
 
 import com.test.parking.core.models.reservations.Registration;
 import com.test.parking.core.models.spaces.ParkingSlot;
+import com.test.parking.core.models.tariffs.Tariff;
 import com.test.parking.core.repositories.ParkingSlotRepository;
 import com.test.parking.core.repositories.RegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +32,14 @@ public class RegistrationService {
         this.registrationRepository = registrationRepository;
     }
 
-    public Registration createRegistration (String vehicleNumber, int parkingSlotId, int time) {
+    public Registration createRegistration (String vehicleNumber, int parkingSlotId, int time, double feeAmount) {
         ParkingSlot parkingSlot = parkingSlotRepository.findOne(parkingSlotId);
 
         Registration registration = new Registration();
         registration.setVehicleNumber(vehicleNumber);
         registration.setParkingSlot(parkingSlot);
         registration.setTime(time);
+        registration.setFeeAmount(feeAmount);
 
         LocalDateTime currentDateTime = LocalDateTime.now();
         long dueTimeInSeconds = currentDateTime.toEpochSecond(ZoneOffset.of("-5")) + time * 60;
@@ -50,7 +52,7 @@ public class RegistrationService {
         return registrationRepository.save(registration);
     }
 
-    public void createStubRegistrations(List<ParkingSlot> parkingSlots) {
+    public void createStubRegistrations(List<ParkingSlot> parkingSlots, List<Tariff> tariffs) {
         List<String> occupied = new ArrayList<>();
         occupied.add("A3");
         occupied.add("A5");
@@ -66,7 +68,8 @@ public class RegistrationService {
         Random random = new Random();
 
         int [] timeArray = {30, 60, 90, 120};
-        String randomSym = "qwertyuiopasdfghjklzxcvbnm1234567890";
+
+        String randomSym = "QWERTYUIOPASDFGHJKLZXCVBNM1234567890";
 
         for(String str : occupied) {
             char [] chArray = str.toCharArray();
@@ -78,7 +81,14 @@ public class RegistrationService {
                         int chIndex = random.nextInt(randomSym.length());
                         s.append(randomSym.charAt(chIndex));
                     }
-                    createRegistration(s.toString(), slot.getId(), timeArray[random.nextInt(4)]);
+                    Tariff tariff = tariffs.stream()
+                            .filter(tar -> (tar.getType() == slot.getType() && tar.isHoliday() == false ))
+                            .findFirst()
+                            .orElse(tariffs.get(0));
+                    double perHourPrice = tariff.getPrice();
+                    double randomTime = timeArray[random.nextInt(4)];
+                    double feeAmount = randomTime / 60f * perHourPrice;
+                    createRegistration(s.toString(), slot.getId(), (int)randomTime, feeAmount);
                 }
             }
 

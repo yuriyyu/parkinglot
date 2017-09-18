@@ -23,9 +23,15 @@ public class TicketService {
     }
 
     public NormalTicket createNormalTicket(Registration registration) {
+
         System.out.println(registration);
         NormalTicket ticket = new NormalTicket();
+//        ticket.setOccupiedTime();
 
+//        registration.getTime()
+
+//        ticket.setTotalCost();
+        ticket.setCreateDate(registration.getCreateDate());
         return ticket;
     }
 }

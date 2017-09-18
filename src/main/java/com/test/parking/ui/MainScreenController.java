@@ -34,6 +34,7 @@ package com.test.parking.ui;
 
 import com.test.parking.core.models.ParkingLot;
 import com.test.parking.core.models.spaces.ParkingSlot;
+import com.test.parking.core.models.tariffs.Tariff;
 import com.test.parking.core.services.ParkingLotService;
 import com.test.parking.core.services.ParkingSlotService;
 import com.test.parking.core.services.RegistrationService;
@@ -86,9 +87,9 @@ public class MainScreenController
             // create stub parking slots
             List<ParkingSlot> parkingSlots = parkingSlotService.createStubSlots(parkingLot);
             // create stub tariffs
-            tariffService.createStubTariffs(parkingLot);
+            List<Tariff> tariffs = tariffService.createStubTariffs(parkingLot);
             // create stub registration
-            registrationService.createStubRegistrations(parkingSlots);
+            registrationService.createStubRegistrations(parkingSlots, tariffs);
         } else {
             parkingLotId = parkingLots.get(0).getId();
         }

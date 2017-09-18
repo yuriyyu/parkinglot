@@ -36,8 +36,18 @@ public class Registration {
 
     private String vehicleNumber;
 
+    private double feeAmount;
+
     public Registration() {
 
+    }
+
+    public double getFeeAmount() {
+        return feeAmount;
+    }
+
+    public void setFeeAmount(double feeAmount) {
+        this.feeAmount = feeAmount;
     }
 
     public LocalDateTime getFromDate() {

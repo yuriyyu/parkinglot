@@ -14,20 +14,10 @@ import java.time.LocalDateTime;
  */
 public class Ticket {
 
-    private int id;
-
     private LocalDateTime createDate;
 
     public Ticket(){
 
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public LocalDateTime getCreateDate() {

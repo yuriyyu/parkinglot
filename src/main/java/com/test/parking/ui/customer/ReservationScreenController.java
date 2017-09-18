@@ -17,6 +17,8 @@ import com.test.parking.core.services.ParkingLotService;
 import com.test.parking.core.services.ParkingSlotService;
 import com.test.parking.core.services.RegistrationService;
 import com.test.parking.core.services.TariffService;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -93,6 +95,9 @@ public class ReservationScreenController
         this.parkingLotId = parkingLotId;
     }
 
+    private ParkingSlot freeParkingSlot;
+    private double slotFeeAmount;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         bottomPane.setVisible(false);
@@ -111,6 +116,16 @@ public class ReservationScreenController
 
         timePicker.setItems(elements);
         timePicker.getSelectionModel().selectFirst();
+        timePicker.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                String [] values = newValue.split(" ");
+                double selectedTime = Double.valueOf(values[0]);
+                Tariff tariff = currentTariffMap.get(freeParkingSlot.getType());
+                slotFeeAmount = selectedTime / 60f * tariff.getPrice();
+                priceText.setText(slotFeeAmount + " $");
+            }
+        });
 
         ParkingLot parkingLot = parkingLotService.getParkingLot(parkingLotId);
         labelParkingLotId.setText(String.valueOf(parkingLotId));
@@ -135,6 +150,7 @@ public class ReservationScreenController
                 if(slot != null) {
                     slotMap.put(slot.getSlotName(), slot);
 
+                    // slot click event listener
                     pane.setOnMouseClicked(event -> {
                         Pane p = (Pane)event.getSource();
                         Label label = (Label) p.getChildren().get(0);
@@ -142,11 +158,14 @@ public class ReservationScreenController
                         if(sSlot != null){
                             VehicleType type = sSlot.getType();
                             Tariff tar = currentTariffMap.get(type);
-                            priceText.setText(tar.getPrice() + " $");
+                            String [] values = timePicker.getSelectionModel().getSelectedItem().split(" ");
+
+                            priceText.setText((Double.valueOf(values[0]) / 60f * tar.getPrice()) + " $");
                             typeText.setText(type.toValue());
                             vehicleNumberText.setText(sSlot.getOccupiedVehicleNumber());
 
                             if(!sSlot.isOccupied()) {
+                                freeParkingSlot = sSlot;
                                 bottomPane.setVisible(true);
                                 priceText.setEditable(true);
                                 vehicleNumberText.setEditable(true);
@@ -156,6 +175,7 @@ public class ReservationScreenController
                                 continueButton.setVisible(true);
 
                             } else {
+                                freeParkingSlot = null;
                                 bottomPane.setVisible(true);
                                 priceText.setEditable(false);
                                 vehicleNumberText.setEditable(false);
@@ -199,13 +219,14 @@ public class ReservationScreenController
     @FXML
     protected void handleContinueButtonAction(ActionEvent event) 
             throws Exception {
-        if(vehicleNumberText.getText() == null || vehicleNumberText.getText().isEmpty()) {
+        if(vehicleNumberText.getText() == null || vehicleNumberText.getText().isEmpty() || freeParkingSlot == null) {
             return;
         }
         String[] splitted = timePicker.getValue().split(" ");
         int time = Integer.valueOf(splitted[0]);
 
-        Registration registration = registrationService.createRegistration(vehicleNumberText.getText(), 1, time);
+        Registration registration = registrationService.createRegistration(
+                vehicleNumberText.getText(), freeParkingSlot.getId(), time, slotFeeAmount);
 
         Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 
