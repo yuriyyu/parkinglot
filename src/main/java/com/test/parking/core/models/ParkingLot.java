@@ -20,19 +20,19 @@ public abstract class ParkingLot {
 
     @Id
     @GeneratedValue
-    private int id;
+    protected int id;
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "parkingLot", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ParkingSlot> parkingSlots = new ArrayList<>();
+    protected List<ParkingSlot> parkingSlots = new ArrayList<>();
 
-    private int size;
+    protected int size;
 
-    private String address;
+    protected String address;
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "parkingLot", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Tariff> tariffs = new ArrayList<>();
+    protected List<Tariff> tariffs = new ArrayList<>();
 
     public ParkingLot() {
 

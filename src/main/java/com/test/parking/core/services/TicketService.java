@@ -17,11 +17,7 @@ import org.springframework.stereotype.Service;
 @Service("ticketService")
 public class TicketService {
 
-    private RegistrationRepository registrationRepository;
-
-    @Autowired
-    public TicketService(RegistrationRepository registrationRepository) {
-        this.registrationRepository = registrationRepository;
+    public TicketService() {
     }
 
     public NormalTicket createNormalTicket(Registration registration) {

@@ -1,9 +1,6 @@
 package com.test.parking.core.models.reservations;
 
 import com.test.parking.core.models.spaces.ParkingSlot;
-import com.test.parking.core.models.tariffs.Tariff;
-import com.test.parking.core.models.tickets.Ticket;
-import com.test.parking.core.models.vehicles.Vehicle;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -20,12 +17,6 @@ public class Registration {
     @GeneratedValue
     private int id;
 
-    @OneToOne
-    @JoinColumn(name = "parking_slot_id")
-    private ParkingSlot parkingSlot;
-
-//    private Tariff tariff;
-
     private int time;
 
     private LocalDateTime createDate;
@@ -37,6 +28,10 @@ public class Registration {
     private String vehicleNumber;
 
     private double feeAmount;
+
+    @OneToOne
+    @JoinColumn(name = "parking_slot_id")
+    private ParkingSlot parkingSlot;
 
     public Registration() {
 
@@ -89,14 +84,6 @@ public class Registration {
     public void setParkingSlot(ParkingSlot parkingSlot) {
         this.parkingSlot = parkingSlot;
     }
-
-//    public Tariff getTariff() {
-//        return tariff;
-//    }
-//
-//    public void setTariff(Tariff tariff) {
-//        this.tariff = tariff;
-//    }
 
     public int getTime() {
         return time;

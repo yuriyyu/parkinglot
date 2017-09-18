@@ -23,27 +23,16 @@ import org.springframework.stereotype.Service;
  */
 @Service("parkingSlotService")
 public class ParkingSlotService {
+
     private ParkingSlotFactory slotFactory;
 
     private ParkingSlotRepository parkingSlotRepository;
-    private ParkingLotRepository parkingLotRepository;
 
     @Autowired
     public ParkingSlotService(ParkingSlotFactory slotFactory,
-                              ParkingSlotRepository parkingSlotRepository,
-                              ParkingLotRepository parkingLotRepository) {
+                              ParkingSlotRepository parkingSlotRepository) {
         this.slotFactory = slotFactory;
         this.parkingSlotRepository = parkingSlotRepository;
-        this.parkingLotRepository = parkingLotRepository;
-    }
-    
-    public List<ParkingSlot> getParkingSlots(int parkingLotId) {
-        ParkingLot parkingLot = parkingLotRepository.findOne(parkingLotId);
-        return parkingSlotRepository.findByParkingLot(parkingLot);
-    }
-    
-    public ParkingSlot getParkingSlot(Integer id) {
-        return parkingSlotRepository.findOne(id);
     }
     
     public List<ParkingSlot> createStubSlots(ParkingLot parkingLot) {

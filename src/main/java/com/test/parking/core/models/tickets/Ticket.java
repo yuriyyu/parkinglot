@@ -1,10 +1,5 @@
 package com.test.parking.core.models.tickets;
 
-import com.test.parking.core.models.reservations.Registration;
-import com.test.parking.core.models.spaces.ParkingSlot;
-import com.test.parking.core.models.vehicles.Vehicle;
-
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
@@ -12,7 +7,7 @@ import java.time.LocalDateTime;
  *
  * @author Yuriy Yugay
  */
-public class Ticket {
+public abstract class Ticket {
 
     protected String vehicleNumber;
 
