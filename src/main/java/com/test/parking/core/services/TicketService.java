@@ -44,11 +44,15 @@ public class TicketService {
         fineTicket.setSlotNumber(overtimeRegistration.getParkingSlot().getSlotName());
         fineTicket.setVehicleNumber(overtimeRegistration.getVehicleNumber());
 
-        int time = overtimeRegistration.getTime();
-        double doublePricePerHour = overtimeRegistration.getFeeAmount() / ((double)time / 60f) * 2;
-        double fineAmount = (double)exceededTime / 60f * doublePricePerHour;
+        double fineAmount = fineAmountCalculation(
+                overtimeRegistration.getTime(), overtimeRegistration.getFeeAmount(), exceededTime);
         fineTicket.setFineCost(fineAmount);
 
         return fineTicket;
+    }
+
+    private double fineAmountCalculation(int time, double feeAmount, int exceededTime) {
+        double doublePricePerHour = feeAmount / ((double)time / 60f) * 2;
+        return (double)exceededTime / 60f * doublePricePerHour;
     }
 }
